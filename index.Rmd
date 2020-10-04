@@ -1,0 +1,28 @@
+--- 
+title: "Actuarial Statistics"
+author: "Alex Garbiak"
+date: "`r format (Sys.time(), '%d %B, %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: agarbiak/CS1
+description: "Actuarial statistics for actuaries providing R code examples."
+favicon: img/favicon.ico
+---
+
+# Introduction {-}
+
+This book is **unpublished** and should be considered an **early build** version. There will be **bugs**, **typos** and **errors**. Please report them [here](https://github.com/agarbiak/CS2/issues).
+
+## Motivation {-}
+
+The purpose of this book is to help actuaries studying [Actuarial Statistics (CS1)](https://www.actuaries.org.uk/studying/curriculum/actuarial-statistics) from the Institute and Faculty of Actuaries by providing `R` code examples across the following topic areas:
+
+1. Random variables and distributions
+2. Data analysis
+3. Statistical inference
+4. Regression theory and applications
+5. Bayesian statistics
