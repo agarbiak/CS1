@@ -15,7 +15,7 @@ favicon: img/favicon.ico
 
 # Introduction {-}
 
-This book is **unpublished** and should be considered an **early build** version. There will be **bugs**, **typos** and **errors**. Please report them [here](https://github.com/agarbiak/CS2/issues).
+This book is **unpublished** and should be considered an **early build** version. There will be **bugs**, **typos** and **errors**. Please report them [here](https://github.com/agarbiak/CS1/issues).
 
 ## Motivation {-}
 
