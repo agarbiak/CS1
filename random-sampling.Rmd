@@ -1,0 +1,15 @@
+# Random Sampling
+
+## Learning Objectives {-#objectives-random-sampling}
+
+1. Explain what is meant by a sample, a population and statistical inference.
+2. Define a random sample from a distribution of a random variable.
+3. Explain what is meant by a statistic and its sampling distribution.
+4. Determine the mean and variance of a sample mean and the mean of a sample variance in terms of the population mean, variance and sample size.
+5. State and use the basic sampling distributions for the sample mean and the sample variance for random samples from a normal distribution.
+6. State and use the distribution of the $t$-statistic for random samples from a normal distribution.
+7. State and use the $F$ distribution for the ratio of two sample variances from independent samples taken from normal distributions.
+
+## Theory {-#theory-random-sampling}
+
+## `R` Practice {-#practice-random-sampling}

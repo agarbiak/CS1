@@ -1,0 +1,19 @@
+# Linear Regression
+
+## Learning Objectives {-#objectives-linear-regression}
+
+1. Explain what is meant by response and explanatory variables.
+2. State the simple regression model (with a single explanatory variable).
+3. Derive the least squares estimates of the slope and intercept parameters in a simple linear regression model.
+4. Use `R` to fit a simple linear regression model to a data set and interpret the output.
+  - Perform statistical inference on the slope parameter.
+  - Describe the use of measures of goodness of fit of a linear regression model.
+  - Use a fitted linear relationship to predict a mean response or an individual response with confidence limits.
+  - Use residuals to check the suitability and validity of a linear regression model.
+5. State the multiple linear regression model (with several explanatory variables).
+6. Use `R` to fit a multiple linear regression model to a data set and interpret the output.
+7. Use measures of model fit to select an appropriate set of explanatory variables.
+
+## Theory {-#theory-linear-regression}
+
+## `R` Practice {-#practice-linear-regression}

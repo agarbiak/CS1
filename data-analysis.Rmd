@@ -1,0 +1,12 @@
+# Data Analysis
+
+## Learning Objectives {-#objectives-data-analysis}
+
+1. Describe the possible aims of a data analysis (e.g. descriptive, inferential, and predictive).
+2. Describe the stages of conducting a data analysis to solve real-world problems in a scientific manner and describe tools suitable for each stage.
+3. Describe sources of data and explain the characteristics of different data sources, including extremely large data sets.
+4. Explain the meaning and value of reproducible research and describe the elements required to ensure a data analysis is reproducible.
+
+## Theory {-#theory-data-analysis}
+
+## `R` Practice {-#practice-data-analysis}

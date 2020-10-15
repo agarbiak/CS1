@@ -1,0 +1,15 @@
+# Confidence Intervals
+
+## Learning Objectives {-#objectives-confidence-intervals}
+
+1. Define in general terms a confidence interval for an unknown parameter of a distribution based on a random sample.
+2. Derive a confidence interval for an unknown parameter using a given sampling distribution.
+3. Calculate confidence intervals for the mean and the variance of a normal distribution.
+4. Calculate confidence intervals for a binomial probability and a Poisson mean, including the use of the normal approximation in both cases.
+5. Calculate confidence intervals for two-sample situations involving the normal distribution, and the binomial and Poisson distributions using the normal approximation.
+6. Calculate confidence intervals for a difference between two means from paired data.
+7. Use the bootstrap method to obtain confidence intervals.
+
+## Theory {-#theory-confidence-intervals}
+
+## `R` Practice {-#practice-confidence-intervals}

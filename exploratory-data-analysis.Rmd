@@ -1,0 +1,12 @@
+# Exploratory Data Analysis
+
+## Learning Objectives {-#objectives-exploratory-data-analysis}
+
+1. Describe the purpose of exploratory data analysis.
+2. Use appropriate tools to calculate suitable summary statistics and undertake exploratory data visualizations.
+3. Define and calculate Pearson’s, Spearman’s and Kendall’s measures of correlation for bivariate data, explain their interpretation and perform statistical inference as appropriate.
+4. Use Principal Components Analysis to reduce the dimensionality of a complex data set.
+
+## Theory {-#theory-exploratory-data-analysis}
+
+## `R` Practice {-#practice-exploratory-data-analysis}

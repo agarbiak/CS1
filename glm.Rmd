@@ -1,0 +1,16 @@
+# Generalised Linear Models
+
+## Learning Objectives {-#objectives-glm}
+
+1. Define an exponential family of distributions. Show that the following distributions may be written in this form: binomial, Poisson, exponential, gamma, normal.
+2. State the mean and variance for an exponential family, and define the variance function and the scale parameter. Derive these quantities for the distributions above.
+3. Explain what is meant by the link function and the canonical link function, referring to the distributions above.
+4. Explain what is meant by a variable, a factor taking categorical values and an interaction term. Define the linear predictor, illustrating its form for simple models, including polynomial models and models involving factors.
+5. Define the deviance and scaled deviance and state how the parameters of a generalised linear model may be estimated. Describe how a suitable model may be chosen by using an analysis of deviance and by examining the significance of the parameters.
+6. Define the Pearson and deviance residuals and describe how they may be used.
+7. Apply statistical tests to determine the acceptability of a fitted model: Pearson’s chi-square test and the likelihood ratio test
+8. Fit a generalised linear model to a data set and interpret the output.
+
+## Theory {-#theory-glm}
+
+## `R` Practice {-#practice-glm}

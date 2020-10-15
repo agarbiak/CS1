@@ -4,3 +4,20 @@ language:
     chapter_name: "Chapter "
 delete_merged_file: true
 output_dir: published
+rmd_files: [
+  "index.Rmd",
+  "setup.Rmd",
+  "univariate-distributions.Rmd",
+  "joint-distributions.Rmd",
+  "clt.Rmd",
+  "data-analysis.Rmd",
+  "exploratory-data-analysis.Rmd",
+  "random-sampling.Rmd",
+  "estimators.Rmd",
+  "confidence-intervals.Rmd",
+  "hypothesis-testing.Rmd",
+  "goodness-of-fit.Rmd",
+  "linear-regression.Rmd",
+  "glm.Rmd",
+  "bayesian-stats.Rmd"
+]

@@ -1,0 +1,11 @@
+# Hypothesis Testing
+
+## Learning Objectives {-#objectives-hypothesis-testing}
+
+1. Explain what is meant by the terms null and alternative hypotheses, simple and composite hypotheses, type I and type II errors, test statistic, likelihood ratio, critical region, level of significance, probability-value and power of a test.
+2. Apply basic tests for the one-sample and two-sample situations involving the normal, binomial and Poisson distributions, and apply basic tests for paired data.
+3. Apply the permutation approach to non-parametric hypothesis tests.
+
+## Theory {-#theory-hypothesis-testing}
+
+## `R` Practice {-#practice-hypothesis-testing}

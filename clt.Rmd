@@ -1,0 +1,10 @@
+# Central Limit Theorem
+
+## Learning Objectives {-#objectives-clt}
+
+1. State the Central Limit Theorem for a sequence of independent, identically distributed random variables.
+2. Generate simulated samples from a given distribution and compare the sampling distribution with the Normal.
+
+## Theory {-#theory-clt}
+
+## `R` Practice {-#practice-clt}

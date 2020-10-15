@@ -1,0 +1,15 @@
+# Estimation and estimators
+
+## Learning Objectives {-#objectives-estimators}
+
+1. Describe and apply the method of moments for constructing estimators of population parameters.
+2. Describe and apply the method of maximum likelihood for constructing estimators of population parameters.
+3. Define the terms: efficiency, bias, consistency and mean squared error.
+4. Define and apply the property of unbiasedness of an estimator.
+5. Define the mean square error of an estimator, and use it to compare estimators.
+6. Describe and apply the asymptotic distribution of maximum likelihood estimators.
+7. Use the bootstrap method to estimate properties of an estimator.
+
+## Theory {-#theory-estimators}
+
+## `R` Practice {-#practice-estimators}

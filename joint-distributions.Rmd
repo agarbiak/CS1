@@ -1,0 +1,14 @@
+# Joint and Conditional Distributions
+
+## Learning Objectives {-#objectives-joint-distributions}
+
+1. Explain what is meant by jointly distributed random variables, marginal distributions and conditional distributions.
+2. Define the probability function/density function of a marginal distribution and of a conditional distribution.
+3. Specify the conditions under which random variables are independent.
+4. Define the expected value of a function of two jointly distributed random variables, the covariance and correlation coefficient between two variables, and calculate such quantities.
+5. Define the probability function/density function of the sum of two independent random variables as the convolution of two functions.
+6. Derive the mean and variance of linear combinations of random variables.
+
+## Theory {-#theory-joint-distributions}
+
+## `R` Practice {-#practice-joint-distributions}

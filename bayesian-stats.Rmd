@@ -1,0 +1,17 @@
+# Bayesian Statistics
+
+## Learning Objectives {-#objectives-bayesian-stats}
+
+1. Use Bayes’ theorem to calculate simple conditional probabilities.
+2. Explain what is meant by a prior distribution, a posterior distribution and a conjugate prior distribution.
+3. Derive the posterior distribution for a parameter in simple cases.
+4. Explain what is meant by a loss function.
+5. Use simple loss functions to derive Bayesian estimates of parameters.
+6. Explain what is meant by the credibility premium formula and describe the role played by the credibility factor.
+7. Explain the Bayesian approach to credibility theory and use it to derive credibility premiums in simple cases.
+8. Explain the empirical Bayes approach to credibility theory and use it to derive credibility premiums in simple cases.
+9. Explain the differences between the two approaches and state the assumptions underlying each of them.
+
+## Theory {-#theory-bayesian-stats}
+
+## `R` Practice {-#practice-bayesian-stats}

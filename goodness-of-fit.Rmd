@@ -1,0 +1,10 @@
+# Goodness of Fit
+
+## Learning Objectives {-#objectives-goodness-of-fit}
+
+1. Use a chi-square test to test the hypothesis that a random sample is from a particular distribution, including cases where parameters are unknown.
+2. Explain what is meant by a contingency (or two-way) table, and use a chi-square test to test the independence of two classification criteria.
+
+## Theory {-#theory-goodness-of-fit}
+
+## `R` Practice {-#practice-goodness-of-fit}

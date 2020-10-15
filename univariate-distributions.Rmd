@@ -1,0 +1,458 @@
+# Univarite Probability Distributions
+
+## Learning Objectives {-#objectives-univariate-distributions}
+
+1. Define and explain the key characteristics of the discrete distributions: geometric, binomial, negative binomial, hypergeometric, Poisson and uniform on a finite set.
+2. Define and explain the key characteristics of the continous distributions: normal, lognormal, exponential, gamma, chi-square, $t$, $F$, beta and uniform on an interval.
+3. Evaluate probabilities and quantiles associated with distributions.
+4. Define and explain the key characteristics of the Poisson process and explain the connection between the Poisson process and the Poisson distribution.
+5. Generate discrete and continous random variables using the inverse transform method.
+
+## Theory {-#theory-univariate-distributions}
+
+`R` was designed to be used for statistical computing - so it handles **randomness** well!
+
+Using `R` we can guarantee reproducibility (and enhance sharability) by using the function `set.seed(seed)`{.R} where `seed` is a single value integer. Using this approach we guarantee the generation of the same sequence of random numbers everytime we call this function. Use `?set.seed`{.R} to learn more about this function.
+
+Let's see `set.seed` in action:
+
+```{r univariate-distributions-randomness}
+# We make five random draws from the integer range [1, 10]
+# We cannot guarantee reproducing this outcome when sharing the code: 
+sample(1:10, 5)
+
+# Now we set a seed value before making the five random draws
+# We guarantee a fixed output which enhances reproducibility and sharability:
+set.seed(42) # Fixes result
+
+# Using set.seed(42) we guarantee five random draws within the integer range [1, 10] will be:
+# 1, 5, 10, 8, 2
+sample(1:10, 5)
+
+# We can re-initialise the seed with the same value
+# Observe that the same sequence of random numbers are generated:
+set.seed(42) # Fixes result
+# Guarantee we draw 1, 5, 10, 8, 2 again
+sample(1:10, 5)
+```
+
+## In-built probability distributions
+
+`R` has in-built functions for probability distributions:
+
+- **d***\<distribution-name\>* $:=$ **d**ensity (PDF), *i.e.* $f_X(x)$
+- **p***\<distribution-name\>* $:=$ **p**robability distribution cumulative function (CDF), *i.e.* $F_X(x) =\boldsymbol{P}(X \leq x)$
+- **q***\<distribution-name\>* $:=$ **q**uantile function, *i.e.* return $x$ such that $\boldsymbol{P}(X \leq x) = p$
+- **r***\<distribution-name\>* $:=$ **r**andom deviates, *i.e.* (*psuedo*) random number generator for a given distribution
+- *Where \<distribution-name\>* $=$ Normal, uniform, lognormal, Student's t, Poisson, binormal, Weibull ... see `?distributions()`{.R} for more information
+
+To give some quick examples (we will explore these in more detail later in this chapter):
+
+| R Code | Definition |
+|-|-|
+| `rnorm(1)`{.R} | Generates $x_1$ where $X \sim \mathcal{N}(0,\,1)$ |
+| `rnorm(y, mean=10, sd=2)`{.R} | Generates $\{y_1,\,y_2,\,\dots\}$ with $Y \sim \mathcal{N}(10,\,2^2)$ |
+| `runif(3, min=5, max=10)`{.R} | Generates $\{z_1,\,z_2,\,z_3\}$  where $Z \sim \mathcal{U}(5,\,10)$ |
+| `dbinom(4, size=5, prob=0.5)`{.R} | Computes $\boldsymbol{P}(X = 4)$ where $X \sim \mathcal{Bin}(5,\,0.5)$ |
+| `pgamma(0.2, shape=2, rate=2)`{.R} | Computes $F_Y(0.2)$ where $Y \sim \mathcal{\Gamma}(2,\,2)$, i.e.  $\boldsymbol{P}(Y\leq 0.2)$|
+| `qexp(0.5, rate = 2)`{.R} | Determines smallest value of $z$ for $\boldsymbol{P}(Z \leq z) = 0.5$ where $Z \sim Exp(2)$ |
+
+## Discrete probability distributions
+
+We will consider how to interact with the following discrete probability distributions in `R`:
+
+- Geometric
+- Binomial
+- Negative binomial
+- Hypergeometric
+- Poisson
+- Uniform (on a finite set)
+
+### Geometric distribution
+
+The geometric probability distribution ($X$) can be defined by the number of failures ($k$) in Bernoulli trials before achieving a success. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, in which the probability of success is constant in every experiment. More formally, if we have $k \in \{0,\,1,\,2,\, \dots \}$ independent trials before a "_success_" with the $P($"_success_"$)$ on each trial defined as $p$, then:
+
+$$P(X = k) = (1 - p)^{k}p$$
+
+We have $X \sim Geo(p)$ with $p \in (0, 1]$.
+
+In `R` we can generate random deviates following a geometric distribution using the function `rgeom(n = number of observations, prob = probability of success)`{.R} as follows:
+
+```{r univariate-distributions-geometric-1}
+# Guarantee reproducibility
+set.seed(42)
+
+# Generate 5 random deviates following Geo(0.25)
+rgeom(5, 0.25)
+```
+
+If we wanted to find the 99<sup>th</sup> percentile of $X \sim Geo(p)$ we would use the quantile function, `qgeom(p = percentile of interest, prob = probability of success)`{.R}. It is also worth noting that `qgeom()`{.R} has an optional argument `lower.tail` taking Boolean inputs (_TRUE_, _FALSE_) with the default being _TRUE_. We can use this to find the top `p` percentile with `qgeom(p = percentile of interest, prob = probability of success, lower.tail = FALSE)`{.R}. Alternatively we can just plug in 1 - `p` with the default argument value.
+
+```{r univariate-distributions-geometric-2}
+# Find the 99th percentile of Geo(0.25)
+percentile_99 <- qgeom(0.99, 0.25)
+
+paste0(
+  "The 99th percentile of X~Geo(0.25) is ",
+  percentile_99,
+  "."
+)
+```
+
+If we wish to find $P(X \leq k)$ then we need to use the function for the cumulative distribution function, `pgeom(q = k failures before success, prob = probability of success)`{.R}.
+
+```{r univariate-distributions-geometric-3}
+# Find P(X <= 7) with X~Geo(0.25)
+prob_geom <- pgeom(7, 0.25)
+
+paste0(
+  "P(X <= 7) with X~Geo(0.25) is ",
+  format(prob_geom, digits = 4),
+  "."
+)
+```
+
+We can find $P(X = k)$ using the `dgeom()`{.R} function call:
+
+```{r univariate-distributions-geometric-4}
+# Find P(X = 7) with X~Geo(0.25)
+prob_geom <- dgeom(7, 0.25)
+```
+We find that $P(X = 7) =$ `r toString(prob_geom)`.
+
+It helps to visualise the probability distribution. We _can_ do this in base `R` with the `plot()`{.R} function. However for illustrative purposes we will use the `ggplot2` package from the [`tidyverse`](https://www.tidyverse.org/packages/) suite of packages. `ggplot2` allows for rich visualisations^[For inspiration consider the BBC's [cookbook](https://bbc.github.io/rcookbook/) that highlights how to create their distinctive graphics predominately using `ggplot2`.] using a consistent syntax. 
+
+```{r univariate-distributions-geometric-5}
+# Plot the distribution function of X~Geo(0.25)
+library(ggplot2)
+df <- data.frame(x = rgeom(1000, 0.25)) 
+ggplot(df, aes(x=x)) + geom_histogram(binwidth = 0.5)
+```
+
+### Binomial distribution
+
+The binomial probability distribution ($Y$) can be defined by the number of successes in a sequence of $n$ Bernoulli trials. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, wherein the probability of success is $p$. We often state the probability of failure as $q = 1 - p$ for convenience. More formally, if we have $k \in \{0,\,1,\,2,\, \dots,\, n \}$ successes given $n$ independent trials with the $P($"_success_"$)$ on each trial defined as $p$, then:
+
+$$P(Y = k) = \binom{n}{k}p^k(1 - p)^{n - k}$$
+
+It can help to think of this as:
+
+- $p^k$ chance of $k$ successes,
+- $(1 - p)^{n - k}$ chance of $n - k$ failures,
+- the ordering of the $k$ successes can occur anywhere within the $n$ trials, hence $\binom{n}{k}$.
+
+We can generate random deviates following the binomial distribution $Y \sim Bin(n, p)$ using `rbinom(n, size, prob)`{.R} where:
+
+- _n_ is the _number_ of random deviates we want to generate, 
+- _size_ is the number of independent trials performed, and
+- _prob_ is the probability of success in any given trial.
+
+```{r univariate-distributions-binomial-1}
+# Generate 5 random deviates on Y~Bin(10, 0.55)
+set.seed(42)
+rbinom(5, 10, 0.55)
+```
+
+To find $P(X <= k)$ we can use the function `pbinom(p, size, prob)`{.R} where:
+
+- _p_ is the probability of interest,
+- _size_ is the number of independent trials performed, and
+- _prob_ is the probability of success in any given trial.
+
+Suppose we were told the probability of having a boy at birth was 0.5131451^[This probability was chosen based on _Table 1_ from [Sex ratios at birth in the United Kingdom, 2014-18](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/925066/Sex_ratios_at_birth_in_the_United_Kingdom__2014-18.pdf) from the Department of Health & Social Care.]. Additionally, suppose we were told that there were 1,264 births^[This turns out to be the number of live births in Guildford in 2019, as per _Table 3_ of the ONS' [Birth Summary Tables, England and Wales, 2019](https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/birthsummarytables). Source: Office for National Statistics under the Open Government Licence.]. Given this, we are curious to know what is the probability of there being less than 632 boys (_i.e. < 50%_) amongst the new babies.
+
+```{r univariate-distributions-binomial-2}
+# Find P(Y <= 632) with Y~Binom(1264, 0.5131451)
+prob_binom <- pbinom(632, 1264, 0.5131451)
+
+paste0(
+  "P(Y <= 632) with Y~Binom(1264, 0.5131451) is ",
+  format(prob_binom, digits = 4),
+  "."
+)
+```
+
+To find $P(Y = k)$ we can use the function `dbinom(x, size, prob)`{.R} where:
+
+- _x_ is the quantile of interest,
+- _size_ is the number of independent trials performed, and
+- _prob_ is the probability of success in any given trial.
+
+Throwing a fair coin, we are curious to compute the probability of observing 4 heads in a sequence of 5 tosses:
+
+```{r univariate-distributions-binomial-3}
+# Find P(Y = 4) where Y~Binom(5, 0.5)
+prob_binom <- dbinom(4, 5, 0.5)
+
+paste0(
+  "P(Y = 4) with Y~Binom(5, 0.5) is ",
+  format(prob_binom, digits = 4),
+  "."
+)
+```
+
+If we wanted to find $P(k_1 \leq Y \leq k_2)$ we can also use the function `dbinom(x, size, prob)`{.R} with _x_ entered as a vector and summing over the output.
+
+Continuing the fair coin example, we are curious what is the probability of observing at least 1 head and at most 3 heads in a sequence of 5 tosses:
+
+```{r univariate-distributions-binomial-4}
+# Find P(1 <= Y <= 3) where Y~Binom(5, 0.5)
+prob_binom <- sum(dbinom(1:3, 5, 0.5))
+
+paste0(
+  "P(1 <= Y <= 3) with Y~Binom(5, 0.5) is ",
+  format(prob_binom, digits = 4),
+  "."
+)
+```
+
+When we are interested in finding the _yth_ percentile we can use the quantile function, `qbinom(p, size, prob)`{.R} where:
+
+- _p_ is the percentile of interest,
+- _size_ is the number of independent trials performed, and
+- _prob_ is the probability of success in any given trial.
+
+Continuing the baby boys example, we now are curious what is the 99th percentile of baby births being boys. Recall that the probability (_p_) of having a boy at birth was 0.5131451 and that there were 1,264 births (_n_) in Guildford in 2019.
+
+```{r univariate-distributions-binomial-5}
+# Find the 99th percentile of Y~Binom(1264, 0.5131451)
+percentile_99 <- qbinom(0.99, 1264, 0.5131451)
+
+paste0(
+  "The 99th percentile of Y~Binom(1264, 0.5131451) is ",
+  percentile_99,
+  "."
+)
+```
+
+Finally, we finish with a plot of binomial distributions and note that with large $n$ the shape of the distribution begins to form the normal distribution (as long as $p$ is not near the extremes of 0 or 1). 
+
+```{r univariate-distributions-binomial-6}
+# Plot the distribution function of X, Y, Z with:
+# X,Y,Z~Binom(n, p) for various {n, p}
+library(ggplot2)
+set.seed(42)
+df <- data.frame(
+  dist_types = factor(    
+    rep(c(
+      "n = 20, p = 0.5",
+      "n = 20, p = 0.7",
+      "n = 40, p = 0.5"
+      ), each = 1000
+    )
+  ),
+  dist_values = c(
+    rbinom(1000, 20, 0.5),
+    rbinom(1000, 20, 0.7),
+    rbinom(1000, 40, 0.5)
+  )
+) 
+
+ggplot(df, aes(x = dist_values, fill = dist_types)) +
+  geom_histogram(binwidth = 1, alpha = 0.75, position = "identity") +
+  xlab("Distribution values") +
+  ylab("Count") +
+  theme_minimal() +
+  labs(fill = "") +
+  ggtitle("Histogram of binomial distribution for various n, p")
+```
+
+### Negative binomial distribution
+
+Generate random deviates
+
+```{r univariate-distributions-negative-binomial-1}
+# Generate random deviates
+```
+
+Find P(Z = 2)
+
+```{r univariate-distributions-negative-binomial-2}
+# Find P(Z = 2)
+```
+
+Find P(Z <= 2)
+
+```{r univariate-distributions-negative-binomial-3}
+# Find P(Z <= 2)
+```
+
+Find the 99<sup>th</sup> percentile
+
+```{r univariate-distributions-negative-binomial-4}
+# Find the 99th percentile of Z~NegBin()
+```
+
+Plot the distribution:
+
+```{r univariate-distributions-negative-binomial-5}
+# Plot the distribution function of Z~NegBin()
+```
+
+### Hypergeometric distribution
+
+```{r univariate-distributions-hypergeometric-2}
+# Find P(X <= 3)
+```
+
+```{r univariate-distributions-hypergeometric-3}
+# Find P(X = 3)
+```
+
+```{r univariate-distributions-hypergeometric-4}
+# Find the 99th percentile of X~Hypergeo()
+```
+
+```{r univariate-distributions-hypergeometric-5}
+# Plot the distribution function of X~Hypergeo()
+```
+
+### Poisson distribution
+
+```{r univariate-distributions-poisson-2}
+# Find P(Y <= 5)
+```
+```{r univariate-distributions-poisson-3}
+# Find P(Y = 5)
+```
+```{r univariate-distributions-poisson-4}
+# Find the 99th percentile of Y~Poisson()
+```
+```{r univariate-distributions-poisson-5}
+# Plot the distribution function of Y~Poisson()
+```
+
+### Uniform distribution - discrete
+
+As an example we can simulate a die throw using $Z \sim \mathcal{U}(1, 6)
+
+```{r univariate-distributions-uniform-discrete-2}
+# Find P(Z <= 3)
+```
+
+```{r univariate-distributions-uniform-discrete-3}
+# Find P(Z = 2)
+```
+
+```{r univariate-distributions-uniform-discrete-4}
+# Plot the distribution function of Z~Uniform(1, 6)
+```
+
+## Continous probability distributions
+
+We will consider how to interact with the following continous probability distributions in `R`:
+
+- Normal
+- Lognormal
+- Exponential
+- Gamma
+- $\chi^2$
+- Student's $t$
+- $F$
+- Beta
+- Uniform (on an interval)
+
+### Normal distribution
+
+```{r univariate-distributions-normal-1}
+
+# Plot the distribution function of X~Normal(mu =, sigma = )
+```
+
+### Lognormal distribution
+
+```{r univariate-distributions-lognormal-1}
+
+# Plot the distribution function of Y~Lognormal()
+```
+
+### Exponential distribution
+
+```{r univariate-distributions-exponential-1}
+
+# Plot the distribution function of Z~Exp()
+```
+
+### Gamma distribution
+
+```{r univariate-distributions-gamma-1}
+
+# Plot the distribution of X~Gamma()
+```
+
+### $\chi^2$ distribution
+
+```{r univariate-distributions-chi-squared-1}
+
+# Plot the distribution of Y~Chi-Square()
+```
+
+### Student's $t$ distribution
+
+```{r univariate-distributions-t-1}
+
+# Plot the distribution of Z~t()
+```
+
+### $F$ distribution
+
+```{r univariate-distributions-F-1}
+
+# Plot the distribution of X~F()
+```
+
+### Beta distribution
+
+```{r univariate-distributions-Beta-1}
+
+# Plot the distribution of Y~Beta()
+```
+
+### Uniform distribution - continous
+
+```{r univariate-distributions-uniform-continous-1}
+
+# Plot the distribution of Z~Uniform()
+```
+
+## Poisson process
+
+```{r univariate-distributions-poisson-process-1}
+
+```
+
+## Inverse transform method
+
+The inverse transform method is a way to generate psuedo-random numbers from any probability distribution. 
+
+One possible algorithm is as follows:
+
+1. Generate a random number $u$ from $U \sim \mathcal{U}(0, 1)
+2. Find the inverse of the desired cumulative distribution function, $F^{-1}_X(x)$
+3. Compute $X = F^{-1}_X(u)$
+
+Suppose we wanted to draw 10,000 random numbers from $X \sim Exp(\lambda = 2)$. In order to use the inverse transform method we first need to find the inverse of the CDF. For any $X \sim Exp(\lambda)$, the inverse of the CDF is $\frac{-log(1-x)}{\lambda}$. We can thus use the inverse transform algorithm to generate random deviates following $X \sim Exp(2)$:
+
+```{r univariate-distributions-inverse-transform-1}
+# Step 0 - to guarantee reproducibility
+set.seed(42)
+
+# Step 1 - generate 10,000 random deviates from U[0,1]
+u <- runif(10000)
+
+# Step 2 - find the inverse of the CDF: 1 - exp(-lambda.x)
+# Inverse of CDF = -log(1 - x) / lambda
+
+# Step 3 - compute X using the inverse of the CDF [from step 2] and the random deviates u [from step 1]
+x <- -log(1 - u) / 2
+
+# Plot the resulting x deviates
+library(ggplot2)
+df <- data.frame(x = x) 
+ggplot(df, aes(x=x)) +
+  geom_histogram(binwidth = 0.5, colour="black", fill="white")
+```
+
+## `R` Practice {-#practice-univariate-distributions}
+
+We finish with a comprehensive example of an univariate distribution question in `R`.
