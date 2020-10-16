@@ -82,14 +82,14 @@ In `R` we can generate random deviates following a geometric distribution using 
 # Guarantee reproducibility
 set.seed(42)
 
-# Generate 5 random deviates following Geo(0.25)
+# Generate 5 random deviates following X~Geo(0.25)
 rgeom(5, 0.25)
 ```
 
-If we wanted to find the 99<sup>th</sup> percentile of $X \sim Geo(p)$ we would use the quantile function, `qgeom(p = percentile of interest, prob = probability of success)`{.R}. It is also worth noting that `qgeom()`{.R} has an optional argument `lower.tail` taking Boolean inputs (_TRUE_, _FALSE_) with the default being _TRUE_. We can use this to find the top `p` percentile with `qgeom(p = percentile of interest, prob = probability of success, lower.tail = FALSE)`{.R}. Alternatively we can just plug in 1 - `p` with the default argument value.
+If we wanted to find the x<sup>th</sup> percentile of $X \sim Geo(p)$ we would use the quantile function, `qgeom(p, prob)`{.R}. It is also worth noting that `qgeom()`{.R} has an optional argument `lower.tail` taking Boolean inputs (_TRUE_, _FALSE_) with the default being _TRUE_. We can use this to find the top `p` percentile with `qgeom(p, prob, lower.tail = FALSE)`{.R}. Alternatively we can just plug in 1 - `p` with the default argument value.
 
 ```{r univariate-distributions-geometric-2}
-# Find the 99th percentile of Geo(0.25)
+# Find the 99th percentile of X~Geo(0.25)
 percentile_99 <- qgeom(0.99, 0.25)
 
 paste0(
@@ -131,7 +131,7 @@ ggplot(df, aes(x=x)) + geom_histogram(binwidth = 0.5)
 
 ### Binomial distribution
 
-The binomial probability distribution ($Y$) can be defined by the number of successes in a sequence of $n$ Bernoulli trials. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, wherein the probability of success is $p$. We often state the probability of failure as $q = 1 - p$ for convenience. More formally, if we have $k \in \{0,\,1,\,2,\, \dots,\, n \}$ successes given $n$ independent trials with the $P($"_success_"$)$ on each trial defined as $p$, then:
+The binomial probability distribution ($Y$) can be defined by the number of successes in a sequence of $n$ independent, identically distributed ("_i.i.d._") Bernoulli trials. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, wherein the probability of success is $p$. We often state the probability of failure as $q = 1 - p$ for convenience. More formally, if we have $k \in \{0,\,1,\,2,\, \dots,\, n \}$ successes given $n$ independent trials with the $P($"_success_"$)$ on each trial defined as $p$, then:
 
 $$P(Y = k) = \binom{n}{k}p^k(1 - p)^{n - k}$$
 
@@ -141,10 +141,10 @@ It can help to think of this as:
 - $(1 - p)^{n - k}$ chance of $n - k$ failures,
 - the ordering of the $k$ successes can occur anywhere within the $n$ trials, hence $\binom{n}{k}$.
 
-We can generate random deviates following the binomial distribution $Y \sim Bin(n, p)$ using `rbinom(n, size, prob)`{.R} where:
+We can generate random deviates following the binomial distribution $Y \sim Bin(n,\,p)$ using `rbinom(n, size, prob)`{.R} where:
 
 - _n_ is the _number_ of random deviates we want to generate, 
-- _size_ is the number of independent trials performed, and
+- _size_ is the number of i.i.d. Bernoulli trials performed, and
 - _prob_ is the probability of success in any given trial.
 
 ```{r univariate-distributions-binomial-1}
@@ -156,7 +156,7 @@ rbinom(5, 10, 0.55)
 To find $P(X <= k)$ we can use the function `pbinom(p, size, prob)`{.R} where:
 
 - _p_ is the probability of interest,
-- _size_ is the number of independent trials performed, and
+- _size_ is the number of i.i.d. Bernoulli trials performed, and
 - _prob_ is the probability of success in any given trial.
 
 Suppose we were told the probability of having a boy at birth was 0.5131451^[This probability was chosen based on _Table 1_ from [Sex ratios at birth in the United Kingdom, 2014-18](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/925066/Sex_ratios_at_birth_in_the_United_Kingdom__2014-18.pdf) from the Department of Health & Social Care.]. Additionally, suppose we were told that there were 1,264 births^[This turns out to be the number of live births in Guildford in 2019, as per _Table 3_ of the ONS' [Birth Summary Tables, England and Wales, 2019](https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/birthsummarytables). Source: Office for National Statistics under the Open Government Licence.]. Given this, we are curious to know what is the probability of there being less than 632 boys (_i.e. < 50%_) amongst the new babies.
@@ -175,7 +175,7 @@ paste0(
 To find $P(Y = k)$ we can use the function `dbinom(x, size, prob)`{.R} where:
 
 - _x_ is the quantile of interest,
-- _size_ is the number of independent trials performed, and
+- _size_ is the number of i.i.d Bernoulli trials performed, and
 - _prob_ is the probability of success in any given trial.
 
 Throwing a fair coin, we are curious to compute the probability of observing 4 heads in a sequence of 5 tosses:
@@ -209,7 +209,7 @@ paste0(
 When we are interested in finding the _yth_ percentile we can use the quantile function, `qbinom(p, size, prob)`{.R} where:
 
 - _p_ is the percentile of interest,
-- _size_ is the number of independent trials performed, and
+- _size_ is the number of i.i.d Bernoulli trials performed, and
 - _prob_ is the probability of success in any given trial.
 
 Continuing the baby boys example, we now are curious what is the 99th percentile of baby births being boys. Recall that the probability (_p_) of having a boy at birth was 0.5131451 and that there were 1,264 births (_n_) in Guildford in 2019.
@@ -259,52 +259,208 @@ ggplot(df, aes(x = dist_values, fill = dist_types)) +
 
 ### Negative binomial distribution
 
-Generate random deviates
+The negative binomial distribution ($Z$) can be defined by the number of failures in a sequence of $n$ independent, identically distributed ("_i.i.d._") Bernoulli trials before a specified number of successes, $r$, occurs. More formally, if we have, $r >0$ number of successes, $k$ number of failures, $p$ probability of success then:
+
+$$P(Z = k) = \binom{k+r-1}{k}(1-p)^{k}p^{r}$$
+
+We can see that with $r = 1$, the binomial distribution is a special case of the more general negative binomial distribution.
+
+Let us begin by generate random deviates from the negative binomial distribution, $Z \sim NegBin(r, p)$, using `rnbinom(n, size, prob)`{.R} where:
+
+- _n_ is the _number_ of random deviates we want to generate,
+- _size_ is the target number of successes from i.i.d. Bernoulli trials, and
+- _prob_ is the probability of success in any given trial
 
 ```{r univariate-distributions-negative-binomial-1}
-# Generate random deviates
+# Generate random deviates from the negative binomial distribution
+set.seed(42)
+rnbinom(5, 10, 0.5)
 ```
 
-Find P(Z = 2)
+To find $P(Z <= k)$ we can use the function `pnbinom(q, size, prob)`{.R} where:
+
+- _q_ is the quantile of interest,
+- _size_ is the target number of successes from i.i.d. Bernoulli trials,
+- _prob_ is the probability of success in any given trial.
 
 ```{r univariate-distributions-negative-binomial-2}
-# Find P(Z = 2)
+# Find P(Z <= 2) with Z~NegBin(5, 0.5)
+prob_nbinom <- pnbinom(2, 5, 0.5)
+
+paste0(
+  "P(Z <= 2) with Z~NegBin(5, 0.5) is ",
+  format(prob_nbinom, digits = 4),
+  "."
+)
 ```
 
-Find P(Z <= 2)
+To find $P(Z = k)$ we can use the function `dnbinom(x, size, prob)`{.R} where:
+
+- _x_ is the quantile of interest,
+- _size_ is the target number of successes from i.i.d. Bernoulli trials, and
+- _prob_ is the probability of success in any given trial.
 
 ```{r univariate-distributions-negative-binomial-3}
-# Find P(Z <= 2)
+# Find P(Z = 2) where Z~NegBin(5, 0.5)
+prob_nbinom <- dnbinom(2, 5, 0.5)
+
+paste0(
+  "P(Z = 2) with Z~NegBin(5, 0.5) is ",
+  format(prob_nbinom, digits = 4),
+  "."  
+)
 ```
 
-Find the 99<sup>th</sup> percentile
+We can also calculate $P(k_1 \leq Z \leq k_2)$ with `dnbinom(x, size, prob)`{.R} by entering _x_ as a vector input and summing over the output.
 
 ```{r univariate-distributions-negative-binomial-4}
-# Find the 99th percentile of Z~NegBin()
+# Find P(1 <= Z <= 3) with Z~NegBin(5, 0.5)
+prob_nbinom <- sum(dnbinom(1:3, 5, 0.5))
+
+paste0(
+  "P(1 <= Z <= 3) with Z~NegBin(5, 0.5) is ",
+  format(prob_nbinom, digits = 4),
+  "."
+)
 ```
 
-Plot the distribution:
+When we are interested in finding the _zth_ percentile we can make use of the quantile function, `qnbinom(p, size, prob)`{.R} where:
+
+- _p_ is the percentile of interest,
+- _size_ is the target number of successes from i.i.d. Bernoulli trials, and
+- _prob_ is the probability of success in any given trial.
 
 ```{r univariate-distributions-negative-binomial-5}
-# Plot the distribution function of Z~NegBin()
+# Find the 99th percentile of Z~NegBin(100, 0.5)
+percentile_99 <- qnbinom(0.99, 100, 0.5)
+
+paste0(
+  "The 99th percentile of Z~NegBin(100, 0.5) is ",
+  percentile_99,
+  "."
+)
+```
+
+Finally, we finish with a plot of the negative binomial distribution:
+
+```{r univariate-distributions-negative-binomial-6}
+# Plot the distribution function of X, Y, Z with: 
+# X,Y,Z~NegBin(r, p) for various {r, p}
+library(ggplot2)
+set.seed(42)
+df <- data.frame(
+  dist_types = factor(
+    rep(c(
+      "r = 5, p = 0.6",
+      "r = 5, p = 0.5",
+      "r = 10, p = 0.4"
+    ), each = 1000
+    )
+  ),
+  dist_values = c(
+    rnbinom(1000, 5, 0.6),
+    rnbinom(1000, 5, 0.5),
+    rnbinom(1000, 10, 0.4)
+  )
+)
+
+ggplot(df, aes(x = dist_values, fill = dist_types)) +
+  geom_histogram(binwidth = 1, alpha = 0.75, position = "identity") +
+  xlab("Distribution values") +
+  ylab("Count") +
+  theme_minimal() +
+  labs(fill = "") +
+  ggtitle("Histogram of negative binomial distribution for various r, p")
 ```
 
 ### Hypergeometric distribution
 
-```{r univariate-distributions-hypergeometric-2}
-# Find P(X <= 3)
+The hypergeometric distribution ($X$) can be defined by the probability of $k$ successes in $n$ draws **without** replacement from a finite population $N$ that contains exactly $K$ objects.
+
+$$P(X = k) = \frac{ \binom{K}{k} \binom{N - K}{n - k} }{ \binom{N}{n} }$$
+
+We begin by generating random deviates from the hypergeometric distribution, $X \sim Hyper(N, K, n)$, using `rhyper(nn, m, n, k)`{.R} where:
+
+- _nn_ is _number_ of observations we want to generate,
+- _m_ is number of "success" objects in the population $N$,
+- _n_ is number of "failure" objects in the population $N$, and
+- _k_ is the number of objects drawn
+
+Traditionally we have defined the population $N$ as an urn containing _m_ white balls and _n_ black balls and this is how arguments are specified in the `stats`{.R} package.
+
+```{r univariate-distributions-hypergeometric-1}
+# Generate random deviates from the hypergeometric distribution
+set.seed(42)
+rhyper(5, 90, 10, 10)
 ```
+
+In the above random deviate generation we specified a 90% ($frac{90}{90 + 10}$) chance of drawing a "success" object and we made 10 draws from this population of 100 objects. With such a high proportion of "_success_" objects it was not suprising to note we generated random deviates from this distribution close to 10/10.
+
+Next we wish to find $P(X <= k)$ which involves using `phyper(q, m, n, k)`{.R} where:
+
+- _q_ is the quantile of interest (representing the number of "success" objects in the finite population $N$),
+- _m_ is the number of "success" objects in the population $N$,
+- _n_ is number of "failure" objects in the population $N$, and
+- _k_ is the number of objects drawn
+
+```{r univariate-distributions-hypergeometric-2}
+# Find P(X <= 5) with X~Hyper()
+prob_hyper <- phyper(5, 90, 10, 10)
+
+paste0(
+  "With 10 objects drawn from a total 100 possible, ",
+  "P(X <= 3) with X~Hyper() is ",
+  format(prob_hyper, digits = 4),
+  "."
+)
+```
+
+To find $P(X = k)$ we can use the function `dhyper(x, m, n, k)`{.R} where:
+
+- _x_ is the quantile of interest (representing the number of "success" objects in the finite population $N$),
+- _m_ is the number of "success" objects in the population $N$,
+- _n_ is number of "failure" objects in the population $N$, and
+- _k_ is the number of objects drawn
 
 ```{r univariate-distributions-hypergeometric-3}
-# Find P(X = 3)
+# Find P(X = 5) with X~Hyper()
+prob_hyper <- dhyper(5, 90, 10, 10)
 ```
+
+We can also calculate $P(k_1 \leq X \leq k_2)$ with `dhyper(x, m, n, k)`{.R} by entering _x_ as a vector input and summing over the output.
+
 
 ```{r univariate-distributions-hypergeometric-4}
-# Find the 99th percentile of X~Hypergeo()
+# Find P(7 <= X <= 9) with X~Hyper()
+prob_hyper <- sum(dhyper(7:9, 90, 10, 10))
 ```
 
+When we are interested in finding the _xth_ percentile we can make use of the quantile function, `qhyper(p, m, n, k)`{.R} where:
+
+- _p_ is the percentile of interest,
+- _m_ is the number of "success" objects in the population $N$,
+- _n_ is number of "failure" objects in the population $N$, and
+- _k_ is the number of objects drawn
+
 ```{r univariate-distributions-hypergeometric-5}
-# Plot the distribution function of X~Hypergeo()
+# Find the 99th percentile of X~Hyper()
+percentile_99 <- qhyper(0.99, 90, 10, 50)
+
+paste0(
+  "When we draw 50 objects from a population of ",
+  "90 'success' objects and 10 'failure' objects, ",
+  "we expect the 99th percentile outcome to be ",
+  percentile_99,
+  "."
+)
+```
+Finally, we finish with a plot of the hypergeometric distribution:
+
+```{r univariate-distributions-hypergeometric-6}
+# Plot the distribution function of X, Y, Z with:
+# X,Y,Z~Hyper() for various {xx, xx}
+library(ggplot2)
+set.seed(42)
 ```
 
 ### Poisson distribution
@@ -324,6 +480,8 @@ Plot the distribution:
 
 ### Uniform distribution - discrete
 
+Our final discrete probability distribution concerns the uniform distribution defined over a finite set.
+
 As an example we can simulate a die throw using $Z \sim \mathcal{U}(1, 6)
 
 ```{r univariate-distributions-uniform-discrete-2}
@@ -340,7 +498,7 @@ As an example we can simulate a die throw using $Z \sim \mathcal{U}(1, 6)
 
 ## Continous probability distributions
 
-We will consider how to interact with the following continous probability distributions in `R`:
+We will now consider how to interact with the following continous probability distributions in `R`:
 
 - Normal
 - Lognormal
@@ -354,8 +512,50 @@ We will consider how to interact with the following continous probability distri
 
 ### Normal distribution
 
-```{r univariate-distributions-normal-1}
+We start with generating random deviates from the Normal distribution.
 
+If we are interested in the standard normal, `R` helpfully has default argument values for $\mu = 0$ and $\sigma = 0$ so the function call is very concise:
+
+```{r univariate-distributions-normal-1}
+# Generate random deviates
+set.seed(42)
+rnorm(5)
+```
+
+We can also specify our own values of $\mu$ and $\sigma$. With `R` we need to remember that the $\sigma$ argument corresponds to the standard deviation, **not** the variance.
+
+```{r univariate-distributions-normal-2}
+# Generate random deviates
+set.seed(42)
+rnorm(5, 10, 2)
+```
+
+We next look at the cumulative distribution function for a Normal distribution. In `R` we can calculate this using `pnorm(q, mean, sd)`{.R} where:
+
+- _q_ is the quantile of interest,
+- _mean_ is the mean, and
+- _sd_ is standard deviation.
+
+```{r univariate-distributions-normal-3}
+# Calculate P(X <= 2) for X~N(0,1)
+```
+
+Next we want to find the x<sup>th</sup> percentile of $X \sim N(\mu, \sigma)$. We use the quantile function, `qnorm(mu, sigma)`{.R}.
+
+```{r univariate-distributions-normal-4}
+# Find the 99th percentile for X~N(10,2)
+percentile_99 <- qnorm(0.99, 10, 2)
+
+paste0(
+  "The 99th percentile of X~N(10, 2) is ",
+  format(percentile_99, digits = 4),
+  "."
+)
+```
+
+As is customary we finish with a plot of the normal distribution.
+
+```{r univariate-distributions-normal-5}
 # Plot the distribution function of X~Normal(mu =, sigma = )
 ```
 
