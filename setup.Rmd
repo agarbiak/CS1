@@ -1,22 +1,39 @@
 # R Setup
 
-## Preparing your environment
+## Preparing your environment for `R`
 
 The Institute and Faculty of Actuaries have provided their [own guide](https://www.actuaries.org.uk/system/files/field/document/R-Guide_technical.pdf) to getting up and running with `R`.
 
 The steps to have `R` working is dependant on your operating system. The following resources _should_ allow for your local installation of `R` to be relatively painless:
 
 1. Download and install `R` from [CRAN](https://cran.rstudio.com/)^[CRAN is the The Comprehensive R Archive Network - read more on the [CRAN](https://cran.rstudio.com/) website].
-2. Download and install an integrated development environment, I recommend [RStudio Desktop](https://rstudio.com/products/rstudio/download/#download).
+2. Download and install an integrated development environment, a strong recommendation is [RStudio Desktop](https://rstudio.com/products/rstudio/download/#download).
 
 ## Basic interations with `R`
 
-`R` prefers **vectorised** operations (over concepts like for loops)
+`R` is case-sensitive! We add comments to our `R` code using the `#` symbol on any line. A key concept when working with `R` is that the preference is to work with **vectorised** operations (over concepts like for loops). As an example we start with `1:10`{.R} which uses the colon operator (`:`{.R}) to generate a sequence starting with 1 and ending with 10 in steps of 1. The output is a numeric **vector** of integers. Let's see this in `R`:
 
 ```{r setup-vector-intro}
 # This is the syntax for comments in R
 (1:10) + 2 # Notice how we add element-wise in R
 ```
+
+At the most basic level, `R` vectors can be of atomic modes:
+
+- integer,
+- numeric (equivalently, double),
+- logical which take on the Boolean types: TRUE or FALSE and can be coerced into integers as 1 and 0 respectively,
+- character which will be apparent in `R` with the wrapper "",
+- complex, and
+- raw
+
+This book focuses on using `R` to solve actuarial statistical problems and will not explore the depths of the `R` language^[I fear this is already too indepth for "basic interactions with `R`" but for those that want to jump down the rabbit hole, see Hadley Wickham's book [Advanced R](https://adv-r.hadley.nz/).]. 
+`R` has the usual arithmetic operators you'd expect with any programming language:
+
+- `+`, `-`, `*`, `/` for addition, subtraction, multiplication and division,
+- `^` for exponentiation,
+- `%%` for modulo arithmetic (remainder after division)
+- `%/%` for integer division
 
 We **assign** values to **variables** using the `<-` *("assignment")* operator^[We can also assign values using the more familiar `=` symbol. In general this is discouraged, listen to [Hadley Wickham](https://style.tidyverse.org/syntax.html#assignment-1).].
 
@@ -29,43 +46,55 @@ y
 z
 ```
 
-Even though $z$ is assigned the same way as we assigned $y$, note that $y \neq z$ so execution order matters in `R`
+Even though $z$ is assigned the same way as we assigned $y$, note that $y \neq z$ so execution order matters in `R`. All of $x$, $y$ and $z$ are **vectors** in `R`.
 
 ## Functions in `R`
 
-We now add **functions** to the `R` code which has the form `function_name(arguments = "values", ...)`{.R}
+We can add **functions** to `R` via the format `function_name(arguments = values, ...)`{.R}:
 
 ```{r setup-function}
-# Combine function, used often to create vectors:
-x <- c(1:3, 6:20, 21:42) 
+# c() is the "combine" function, used often to create vectors
+# Note we can also nest functions within functions
+x <- c(1:3, 6:20, 21:42, c(43, 44))
 # Another function with arguments:
 y <- sample(x, size = 3)
 y
 ```
 
 There are a lot of in-built functions in `R` that we may need:
-- factorial(x)
-- choose(n, x)
-- exp(x)
-- log(x)
-- gamma(x)
-- sqrt(x)
-- x^n
-- sum(x)
-- mean(x)
-- median(x)
-- var(x)
-- sd(x)
-- quantile(x, 0.75)
 
-Let's create a **matrix** in `R`
+- `factorial(x)`
+- `choose(n, k)` - for binomial coefficients
+- `exp(x)`
+- `log(x)` - by default in base $e$
+- `gamma(x)`
+- `abs(x)` - absolute value
+- `sqrt(x)`
+- `sum(x)`
+- `mean(x)`
+- `median(x)`
+- `var(x)`
+- `sd(x)`
+- `quantile(x, 0.75)`
+- `set.seed(seed)` - for reproducibility of random number generation
+- `sample(x, size)`
 
-*Note:* **Matrix multiplication** requires the `%*%` syntax
+`R` has an in-built help function `?`{.R} which can be used to read the documentation on any function as well as topic areas. For example have a look at `?Special`{.R} for more details about in-built `R` functions for the beta and gamma functions.
+
+## Data structures in `R`
+
+We have already seen **vectors** as a data structure that is very common in `R`. We can identify the structure of an `R` "object" using the `str(object)`{.R} function.
+
+### Matrices {-}
+
+Next we introduce the **matrix** structure. When interacting with matrices in `R` it is important to note that **matrix multiplication** requires the `%*%` syntax:
 
 ```{r setup-matrix}
 first_matrix <- matrix(1:9, byrow = TRUE, nrow = 3)
 first_matrix %*% first_matrix
 ```
+
+### Dataframes {-}
 
 A `data.frame` is a very popular data structure used in `R`. Each input variable has to have the same length but can be of different types (*strings, integers, booleans, etc.*).
 
@@ -77,6 +106,8 @@ surface_gravity <- c(0.38, 0.904, 1, 0.3794, 2.528, 1.065, 0.886, 1.14)
 solar_system <- data.frame(name, surface_gravity)
 str(solar_system)
 ```
+
+## Logical expressions in `R`
 
 R has built in logic expressions:
 
@@ -90,21 +121,21 @@ R has built in logic expressions:
 | \| | OR (*element-wise*) |
 | != | not equal to |
 
+We can use logical expressions to effectively filter data via **subsetting** the data using the `[...]`{.R} syntax:
 
-We can use logical expressions to effectively filter data
-
-Here we **subset** the data using the `[...]`{.R} syntax
 ```{r setup-subsetting}
 x <- 1:10
 x[x != 5 & x < 7]
 ```
 
-We can select objects using the **\$** symbol - see `?Extract`{.R} for more help here
+We can select objects using the **\$** symbol (see `?Extract`{.R} for more help):
 
 ```{r setup-selecting}
 #data.frame[rows to select, columns to select]
 solar_system[solar_system$name == "Jupiter", c(1:2)]
 ```
+
+## Extending `R` with packages
 
 We can extend `R`'s functionality by loading **packages**:
 
@@ -113,9 +144,7 @@ We can extend `R`'s functionality by loading **packages**:
 library(ggplot2)
 ```
 
-- Did you get an error from `R` trying this?
-- To load packages they need to be **installed** first:
-- `install.packages("ggplot2")`{.R}
+Did you get an error from `R` trying this? To load packages they need to be **installed** using `install.packages("package name")`{.R}.
 
 ## Importing data
 
