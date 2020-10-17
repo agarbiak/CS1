@@ -5,7 +5,7 @@ set -e
 
 # Copy _book to published book repo
 printf "\033[0;32mCopying _book to published book repo...\033[0m\n"
-cp -r _published/. ../Book-CS1
+cp -r published/. ../Book-CS1
 
 # Change to published book repo
 printf "\033[0;32mMove into to published book directory...\033[0m\n"
