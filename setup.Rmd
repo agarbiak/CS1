@@ -107,6 +107,36 @@ solar_system <- data.frame(name, surface_gravity)
 str(solar_system)
 ```
 
+### Lists {-}
+
+A `list` is a versatile data structure in `R` as their elements can be of any type, including lists themselves. In fact a `data.frame` is a specific implementation of a `list` which allows columns in a `data.frame` to have different types, unlike a `matrix`.
+
+We will come across a number of functions that return a `list` type whilst working with actuarial statistics in `R`. For example when we look at linear models we will make use of the `lm(formula, data, ...)`{.R} function which returns a `list`. 
+
+```{r setup-list-1, collapse = TRUE}
+# Use Orange dataset
+df <- Orange
+# Fit a linear model to predict circumference from age
+fitted_lm <- lm(circumference ~ age, df)
+# Size of the list
+length(fitted_lm)
+# Element names
+names(fitted_lm)
+```
+
+We can access elements in the list using **subsetting**, noting the use of the `[[` operator. Here we subset on "_age_"  within the "_coefficient_" element in the `list` we called "_fitted_lm_":
+
+```{r setup-list-2, collapse = TRUE}
+# Select [[1]] 1st element in the list, sub-select [2] 2nd element from that
+fitted_lm[[1]][2] 
+# fitted_lm$coefficient is a shorthand for fitted_lm[["coefficient"]] 
+fitted_lm$coefficients[2] 
+# Select element using matching character vector "age"
+fitted_lm$coefficients["age"]
+# Select elements using matching character vectors
+fitted_lm[["coefficients"]]["age"]
+```
+
 ## Logical expressions in `R`
 
 R has built in logic expressions:
@@ -149,6 +179,7 @@ Did you get an error from `R` trying this? To load packages they need to be **in
 ## Importing data
 
 `R` can import a wide variety of file formats, including:
+
 - _.csv_
 - _.RData_
 - _.txt_
