@@ -2,8 +2,23 @@
 
 ## Learning Objectives {-#objectives-univariate-distributions}
 
-1. Define and explain the key characteristics of the discrete distributions: geometric, binomial, negative binomial, hypergeometric, Poisson and uniform on a finite set.
-2. Define and explain the key characteristics of the continous distributions: normal, lognormal, exponential, gamma, chi-square, $t$, $F$, beta and uniform on an interval.
+1. Define and explain the key characteristics of the discrete distributions:
+  - geometric, 
+  - binomial, 
+  - negative binomial, 
+  - hypergeometric, 
+  - Poisson and 
+  - uniform on a finite set.
+2. Define and explain the key characteristics of the continous distributions:
+  - normal, 
+  - lognormal, 
+  - exponential, 
+  - gamma, 
+  - chi-square, 
+  - $t$, 
+  - $F$, 
+  - beta and 
+  - uniform on an interval.
 3. Evaluate probabilities and quantiles associated with distributions.
 4. Define and explain the key characteristics of the Poisson process and explain the connection between the Poisson process and the Poisson distribution.
 5. Generate discrete and continous random variables using the inverse transform method.
@@ -44,7 +59,7 @@ sample(1:10, 5)
 - **p***\<distribution-name\>* $:=$ **p**robability distribution cumulative function (CDF), *i.e.* $F_X(x) =\boldsymbol{P}(X \leq x)$
 - **q***\<distribution-name\>* $:=$ **q**uantile function, *i.e.* return $x$ such that $\boldsymbol{P}(X \leq x) = p$
 - **r***\<distribution-name\>* $:=$ **r**andom deviates, *i.e.* (*psuedo*) random number generator for a given distribution
-- *Where \<distribution-name\>* $=$ Normal, uniform, lognormal, Student's t, Poisson, binormal, Weibull ... see `?distributions()`{.R} for more information
+- *Where \<distribution-name\>* $=$ Normal, uniform, lognormal, Student's $t$, Poisson, binormal, Weibull ... see `?distributions()`{.R} for more information
 
 To give some quick examples (we will explore these in more detail later in this chapter):
 
@@ -53,7 +68,7 @@ To give some quick examples (we will explore these in more detail later in this 
 | `rnorm(1)`{.R} | Generates $x_1$ where $X \sim \mathcal{N}(0,\,1)$ |
 | `rnorm(y, mean=10, sd=2)`{.R} | Generates $\{y_1,\,y_2,\,\dots\}$ with $Y \sim \mathcal{N}(10,\,2^2)$ |
 | `runif(3, min=5, max=10)`{.R} | Generates $\{z_1,\,z_2,\,z_3\}$  where $Z \sim \mathcal{U}(5,\,10)$ |
-| `dbinom(4, size=5, prob=0.5)`{.R} | Computes $\boldsymbol{P}(X = 4)$ where $X \sim \mathcal{Bin}(5,\,0.5)$ |
+| `dbinom(4, size=5, prob=0.5)`{.R} | Computes $\boldsymbol{P}(X = 4)$ where $X \sim Bin(5,\,0.5)$ |
 | `pgamma(0.2, shape=2, rate=2)`{.R} | Computes $F_Y(0.2)$ where $Y \sim \mathcal{\Gamma}(2,\,2)$, i.e.  $\boldsymbol{P}(Y\leq 0.2)$|
 | `qexp(0.5, rate = 2)`{.R} | Determines smallest value of $z$ for $\boldsymbol{P}(Z \leq z) = 0.5$ where $Z \sim Exp(2)$ |
 
@@ -70,13 +85,16 @@ We will consider how to interact with the following discrete probability distrib
 
 ### Geometric distribution
 
-The geometric probability distribution ($X$) can be defined by the number of failures ($k$) in Bernoulli trials before achieving a success. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, in which the probability of success is constant in every experiment. More formally, if we have $k \in \{0,\,1,\,2,\, \dots \}$ independent trials before a "_success_" with the $P($"_success_"$)$ on each trial defined as $p$, then:
+The geometric probability distribution ($X$) can be defined by the number of failures ($k$) in Bernoulli trials before achieving a success. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, in which the probability of success is constant in every experiment. More formally, if we have $k \in \{0,\,1,\,2,\, \dots \}$ independent, identically distributed ("_i.i.d._") Bernoulli trials before a "_success_" with the $P($"_success_"$)$ on each trial defined as $p$, then:
 
 $$P(X = k) = (1 - p)^{k}p$$
 
 We have $X \sim Geo(p)$ with $p \in (0, 1]$.
 
-In `R` we can generate random deviates following a geometric distribution using the function `rgeom(n = number of observations, prob = probability of success)`{.R} as follows:
+In `R` we can generate random deviates following a geometric distribution using the function `rgeom(n, prob)`{.R} where: 
+
+- _n_ is the _number_ of random deviates we want to generate, and
+- _prob_ is the _probability_ of success in any given Bernoulli trial. 
 
 ```{r univariate-distributions-geometric-1}
 # Guarantee reproducibility
@@ -99,7 +117,10 @@ paste0(
 )
 ```
 
-If we wish to find $P(X \leq k)$ then we need to use the function for the cumulative distribution function, `pgeom(q = k failures before success, prob = probability of success)`{.R}.
+If we wish to find $P(X \leq k)$ then we need to use the function for the cumulative distribution function, `pgeom(q, prob)`{.R} where:
+
+- _q_ equates to $k$ failures before success in a sequence of i.i.d. Bernoulli trials,
+- _prob_ is the _probability_ of success in any given Bernoulli trial. 
 
 ```{r univariate-distributions-geometric-3}
 # Find P(X <= 7) with X~Geo(0.25)
@@ -131,7 +152,7 @@ ggplot(df, aes(x=x)) + geom_histogram(binwidth = 0.5)
 
 ### Binomial distribution
 
-The binomial probability distribution ($Y$) can be defined by the number of successes in a sequence of $n$ independent, identically distributed ("_i.i.d._") Bernoulli trials. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, wherein the probability of success is $p$. We often state the probability of failure as $q = 1 - p$ for convenience. More formally, if we have $k \in \{0,\,1,\,2,\, \dots,\, n \}$ successes given $n$ independent trials with the $P($"_success_"$)$ on each trial defined as $p$, then:
+The binomial probability distribution ($Y$) can be defined by the number of successes in a sequence of $n$ i.i.d. Bernoulli trials. A Bernoulli trial is a random experiment with exactly two outcomes, \{"_success_", "_failure_"\}, wherein the probability of success is $p$. We often state the probability of failure as $q = 1 - p$ for convenience. More formally, if we have $k \in \{0,\,1,\,2,\, \dots,\, n \}$ successes given $n$ i.i.d. Bernoulli trials with the $P($"_success_"$)$ on each trial defined as $p$, then:
 
 $$P(Y = k) = \binom{n}{k}p^k(1 - p)^{n - k}$$
 
@@ -210,7 +231,7 @@ When we are interested in finding the _yth_ percentile we can use the quantile f
 
 - _p_ is the percentile of interest,
 - _size_ is the number of i.i.d Bernoulli trials performed, and
-- _prob_ is the probability of success in any given trial.
+- _prob_ is the probability of success in any given Bernoulli trial.
 
 Continuing the baby boys example, we now are curious what is the 99th percentile of baby births being boys. Recall that the probability (_p_) of having a boy at birth was 0.5131451 and that there were 1,264 births (_n_) in Guildford in 2019.
 
