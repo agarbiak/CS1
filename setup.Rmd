@@ -184,4 +184,8 @@ Did you get an error from `R` trying this? To load packages they need to be **in
 - _.RData_
 - _.txt_
 
-We can import these using `read.csv()`, `load()` and `read.table()` respectively.
+We can import these using `read.csv(file, header, sep)`, `load(file)` and `read.table(file, header, sep)` respectively, where:
+
+- _file_ is the file name to be read,
+- _header_ is a logical value to determine if the first line contains the variable names, and
+- _sep_ is the specified field separator character, e.g. for _.csv_ files by default `sep = ","` given it is a comma separated value file type.
