@@ -7,7 +7,8 @@ output_dir: published
 rmd_files: [
   "index.Rmd",
   "setup.Rmd",
-  "univariate-distributions.Rmd",
+  "discrete-distributions.Rmd",
+  "continuous-distributions.Rmd",
   "joint-distributions.Rmd",
   "clt.Rmd",
   "data-analysis.Rmd",
