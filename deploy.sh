@@ -3,9 +3,13 @@
 # If a command fails then the deploy stops
 set -e
 
+# Copy _book to published book repo
+printf "\033[0;32mCopying _book to published book repo...\033[0m\n"
+cp -r _published/. ../Book-CS1
+
 # Change to published book repo
-printf "\033[0;32mMove into to published repo...\033[0m\n"
-cd published
+printf "\033[0;32mMove into to published book directory...\033[0m\n"
+cd ../Book-CS1
 
 # Add changes to git.
 printf "\033[0;32mStaging changes...\033[0m\n"
@@ -21,4 +25,4 @@ git push
 
 # Return back to source build repo
 printf "\033[0;32mSwitch back to source build repo...\033[0m\n"
-cd ../
+cd ../CS1/
