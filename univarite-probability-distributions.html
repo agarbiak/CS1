@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Univarite Probability Distributions | Actuarial Statistics</title>
+  <meta name="description" content="Actuarial statistics for actuaries providing R code examples." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Univarite Probability Distributions | Actuarial Statistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Actuarial statistics for actuaries providing R code examples." />
+  <meta name="github-repo" content="agarbiak/CS1" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Univarite Probability Distributions | Actuarial Statistics" />
+  
+  <meta name="twitter:description" content="Actuarial statistics for actuaries providing R code examples." />
+  
+
+<meta name="author" content="Alex Garbiak" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="r-setup.html"/>
+<link rel="next" href="joint-and-conditional-distributions.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="css\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Actuarial Statistics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#motivation"><i class="fa fa-check"></i>Motivation</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="r-setup.html"><a href="r-setup.html"><i class="fa fa-check"></i><b>1</b> R Setup</a><ul>
+<li class="chapter" data-level="1.1" data-path="r-setup.html"><a href="r-setup.html#preparing-your-environment"><i class="fa fa-check"></i><b>1.1</b> Preparing your environment</a></li>
+<li class="chapter" data-level="1.2" data-path="r-setup.html"><a href="r-setup.html#basic-interations-with-r"><i class="fa fa-check"></i><b>1.2</b> Basic interations with <code>R</code></a></li>
+<li class="chapter" data-level="1.3" data-path="r-setup.html"><a href="r-setup.html#functions-in-r"><i class="fa fa-check"></i><b>1.3</b> Functions in <code>R</code></a></li>
+<li class="chapter" data-level="1.4" data-path="r-setup.html"><a href="r-setup.html#importing-data"><i class="fa fa-check"></i><b>1.4</b> Importing data</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html"><i class="fa fa-check"></i><b>2</b> Univarite Probability Distributions</a><ul>
+<li class="chapter" data-level="" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#objectives-univariate-distributions"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#theory-univariate-distributions"><i class="fa fa-check"></i>Theory</a></li>
+<li class="chapter" data-level="2.1" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#in-built-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> In-built probability distributions</a></li>
+<li class="chapter" data-level="2.2" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#discrete-probability-distributions"><i class="fa fa-check"></i><b>2.2</b> Discrete probability distributions</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#geometric-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Geometric distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#binomial-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.2.3" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#negative-binomial-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Negative binomial distribution</a></li>
+<li class="chapter" data-level="2.2.4" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#hypergeometric-distribution"><i class="fa fa-check"></i><b>2.2.4</b> Hypergeometric distribution</a></li>
+<li class="chapter" data-level="2.2.5" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#poisson-distribution"><i class="fa fa-check"></i><b>2.2.5</b> Poisson distribution</a></li>
+<li class="chapter" data-level="2.2.6" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#uniform-distribution---discrete"><i class="fa fa-check"></i><b>2.2.6</b> Uniform distribution - discrete</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#continous-probability-distributions"><i class="fa fa-check"></i><b>2.3</b> Continous probability distributions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#normal-distribution"><i class="fa fa-check"></i><b>2.3.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="2.3.2" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#lognormal-distribution"><i class="fa fa-check"></i><b>2.3.2</b> Lognormal distribution</a></li>
+<li class="chapter" data-level="2.3.3" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#exponential-distribution"><i class="fa fa-check"></i><b>2.3.3</b> Exponential distribution</a></li>
+<li class="chapter" data-level="2.3.4" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#gamma-distribution"><i class="fa fa-check"></i><b>2.3.4</b> Gamma distribution</a></li>
+<li class="chapter" data-level="2.3.5" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#chi2-distribution"><i class="fa fa-check"></i><b>2.3.5</b> <span class="math inline">\(\chi^2\)</span> distribution</a></li>
+<li class="chapter" data-level="2.3.6" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#students-t-distribution"><i class="fa fa-check"></i><b>2.3.6</b> Student’s <span class="math inline">\(t\)</span> distribution</a></li>
+<li class="chapter" data-level="2.3.7" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#f-distribution"><i class="fa fa-check"></i><b>2.3.7</b> <span class="math inline">\(F\)</span> distribution</a></li>
+<li class="chapter" data-level="2.3.8" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#beta-distribution"><i class="fa fa-check"></i><b>2.3.8</b> Beta distribution</a></li>
+<li class="chapter" data-level="2.3.9" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#uniform-distribution---continous"><i class="fa fa-check"></i><b>2.3.9</b> Uniform distribution - continous</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#poisson-process"><i class="fa fa-check"></i><b>2.4</b> Poisson process</a></li>
+<li class="chapter" data-level="2.5" data-path="univarite-probability-distributions.html"><a href="univarite-probability-distributions.html#inverse-transform-method"><i class="fa fa-check"></i><b>2.5</b> Inverse transform method</a></li>
+<li><a href="univarite-probability-distributions.html#practice-univariate-distributions"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="joint-and-conditional-distributions.html"><a href="joint-and-conditional-distributions.html"><i class="fa fa-check"></i><b>3</b> Joint and Conditional Distributions</a><ul>
+<li class="chapter" data-level="" data-path="joint-and-conditional-distributions.html"><a href="joint-and-conditional-distributions.html#objectives-joint-distributions"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="joint-and-conditional-distributions.html"><a href="joint-and-conditional-distributions.html#theory-joint-distributions"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="joint-and-conditional-distributions.html#practice-joint-distributions"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="central-limit-theorem.html"><a href="central-limit-theorem.html"><i class="fa fa-check"></i><b>4</b> Central Limit Theorem</a><ul>
+<li class="chapter" data-level="" data-path="central-limit-theorem.html"><a href="central-limit-theorem.html#objectives-clt"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="central-limit-theorem.html"><a href="central-limit-theorem.html#theory-clt"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="central-limit-theorem.html#practice-clt"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-analysis.html"><a href="data-analysis.html"><i class="fa fa-check"></i><b>5</b> Data Analysis</a><ul>
+<li class="chapter" data-level="" data-path="data-analysis.html"><a href="data-analysis.html#objectives-data-analysis"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="data-analysis.html"><a href="data-analysis.html#theory-data-analysis"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="data-analysis.html#practice-data-analysis"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#objectives-exploratory-data-analysis"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#theory-exploratory-data-analysis"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="exploratory-data-analysis.html#practice-exploratory-data-analysis"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="random-sampling.html"><a href="random-sampling.html"><i class="fa fa-check"></i><b>7</b> Random Sampling</a><ul>
+<li class="chapter" data-level="" data-path="random-sampling.html"><a href="random-sampling.html#objectives-random-sampling"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="random-sampling.html"><a href="random-sampling.html#theory-random-sampling"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="random-sampling.html#practice-random-sampling"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="estimation-and-estimators.html"><a href="estimation-and-estimators.html"><i class="fa fa-check"></i><b>8</b> Estimation and estimators</a><ul>
+<li class="chapter" data-level="" data-path="estimation-and-estimators.html"><a href="estimation-and-estimators.html#objectives-estimators"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="estimation-and-estimators.html"><a href="estimation-and-estimators.html#theory-estimators"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="estimation-and-estimators.html#practice-estimators"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="confidence-intervals.html"><a href="confidence-intervals.html"><i class="fa fa-check"></i><b>9</b> Confidence Intervals</a><ul>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#objectives-confidence-intervals"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="confidence-intervals.html"><a href="confidence-intervals.html#theory-confidence-intervals"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="confidence-intervals.html#practice-confidence-intervals"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>10</b> Hypothesis Testing</a><ul>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#objectives-hypothesis-testing"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#theory-hypothesis-testing"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="hypothesis-testing.html#practice-hypothesis-testing"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html"><i class="fa fa-check"></i><b>11</b> Goodness of Fit</a><ul>
+<li class="chapter" data-level="" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#objectives-goodness-of-fit"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="goodness-of-fit.html"><a href="goodness-of-fit.html#theory-goodness-of-fit"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="goodness-of-fit.html#practice-goodness-of-fit"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>12</b> Linear Regression</a><ul>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#objectives-linear-regression"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#theory-linear-regression"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="linear-regression.html#practice-linear-regression"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="generalised-linear-models.html"><a href="generalised-linear-models.html"><i class="fa fa-check"></i><b>13</b> Generalised Linear Models</a><ul>
+<li class="chapter" data-level="" data-path="generalised-linear-models.html"><a href="generalised-linear-models.html#objectives-glm"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="generalised-linear-models.html"><a href="generalised-linear-models.html#theory-glm"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="generalised-linear-models.html#practice-glm"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html"><i class="fa fa-check"></i><b>14</b> Bayesian Statistics</a><ul>
+<li class="chapter" data-level="" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html#objectives-bayesian-stats"><i class="fa fa-check"></i>Learning Objectives</a></li>
+<li class="chapter" data-level="" data-path="bayesian-statistics.html"><a href="bayesian-statistics.html#theory-bayesian-stats"><i class="fa fa-check"></i>Theory</a></li>
+<li><a href="bayesian-statistics.html#practice-bayesian-stats"><code>R</code> Practice</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/agarbiak" target="blank">A book by Alex Garbiak</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Actuarial Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="univarite-probability-distributions" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Univarite Probability Distributions</h1>
+<div id="objectives-univariate-distributions" class="section level2 unnumbered">
+<h2>Learning Objectives</h2>
+<ol style="list-style-type: decimal">
+<li>Define and explain the key characteristics of the discrete distributions:</li>
+</ol>
+<ul>
+<li>geometric,</li>
+<li>binomial,</li>
+<li>negative binomial,</li>
+<li>hypergeometric,</li>
+<li>Poisson and</li>
+<li>uniform on a finite set.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Define and explain the key characteristics of the continous distributions:</li>
+</ol>
+<ul>
+<li>normal,</li>
+<li>lognormal,</li>
+<li>exponential,</li>
+<li>gamma,</li>
+<li>chi-square,</li>
+<li><span class="math inline">\(t\)</span>,</li>
+<li><span class="math inline">\(F\)</span>,</li>
+<li>beta and</li>
+<li>uniform on an interval.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Evaluate probabilities and quantiles associated with distributions.</li>
+<li>Define and explain the key characteristics of the Poisson process and explain the connection between the Poisson process and the Poisson distribution.</li>
+<li>Generate discrete and continous random variables using the inverse transform method.</li>
+</ol>
+</div>
+<div id="theory-univariate-distributions" class="section level2 unnumbered">
+<h2>Theory</h2>
+<p><code>R</code> was designed to be used for statistical computing - so it handles <strong>randomness</strong> well!</p>
+<p>Using <code>R</code> we can guarantee reproducibility (and enhance sharability) by using the function <code class="sourceCode r"><span class="kw">set.seed</span>(seed)</code> where <code>seed</code> is a single value integer. Using this approach we guarantee the generation of the same sequence of random numbers everytime we call this function. Use <code class="sourceCode r">?set.seed</code> to learn more about this function.</p>
+<p>Let’s see <code>set.seed</code> in action:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="univarite-probability-distributions.html#cb15-1"></a><span class="co"># We make five random draws from the integer range [1, 10]</span></span>
+<span id="cb15-2"><a href="univarite-probability-distributions.html#cb15-2"></a><span class="co"># We cannot guarantee reproducing this outcome when sharing the code: </span></span>
+<span id="cb15-3"><a href="univarite-probability-distributions.html#cb15-3"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] 6 7 9 4 1</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="univarite-probability-distributions.html#cb17-1"></a><span class="co"># Now we set a seed value before making the five random draws</span></span>
+<span id="cb17-2"><a href="univarite-probability-distributions.html#cb17-2"></a><span class="co"># We guarantee a fixed output which enhances reproducibility and sharability:</span></span>
+<span id="cb17-3"><a href="univarite-probability-distributions.html#cb17-3"></a><span class="kw">set.seed</span>(<span class="dv">42</span>) <span class="co"># Fixes result</span></span>
+<span id="cb17-4"><a href="univarite-probability-distributions.html#cb17-4"></a></span>
+<span id="cb17-5"><a href="univarite-probability-distributions.html#cb17-5"></a><span class="co"># Using set.seed(42) we guarantee five random draws within the integer range [1, 10] will be:</span></span>
+<span id="cb17-6"><a href="univarite-probability-distributions.html#cb17-6"></a><span class="co"># 1, 5, 10, 8, 2</span></span>
+<span id="cb17-7"><a href="univarite-probability-distributions.html#cb17-7"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  1  5 10  8  2</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="univarite-probability-distributions.html#cb19-1"></a><span class="co"># We can re-initialise the seed with the same value</span></span>
+<span id="cb19-2"><a href="univarite-probability-distributions.html#cb19-2"></a><span class="co"># Observe that the same sequence of random numbers are generated:</span></span>
+<span id="cb19-3"><a href="univarite-probability-distributions.html#cb19-3"></a><span class="kw">set.seed</span>(<span class="dv">42</span>) <span class="co"># Fixes result</span></span>
+<span id="cb19-4"><a href="univarite-probability-distributions.html#cb19-4"></a><span class="co"># Guarantee we draw 1, 5, 10, 8, 2 again</span></span>
+<span id="cb19-5"><a href="univarite-probability-distributions.html#cb19-5"></a><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  1  5 10  8  2</code></pre>
+</div>
+<div id="in-built-probability-distributions" class="section level2">
+<h2><span class="header-section-number">2.1</span> In-built probability distributions</h2>
+<p><code>R</code> has in-built functions for probability distributions:</p>
+<ul>
+<li><strong>d</strong><em>&lt;distribution-name&gt;</em> <span class="math inline">\(:=\)</span> <strong>d</strong>ensity (“<em>PDF</em>”), <em>i.e.</em> <span class="math inline">\(f_X(x)\)</span></li>
+<li><strong>p</strong><em>&lt;distribution-name&gt;</em> <span class="math inline">\(:=\)</span> <strong>p</strong>robability distribution cumulative function (“<em>CDF</em>”), <em>i.e.</em> <span class="math inline">\(F_X(x) =\boldsymbol{P}(X \leq x)\)</span></li>
+<li><strong>q</strong><em>&lt;distribution-name&gt;</em> <span class="math inline">\(:=\)</span> <strong>q</strong>uantile function, <em>i.e.</em> return <span class="math inline">\(x\)</span> such that <span class="math inline">\(\boldsymbol{P}(X \leq x) = p\)</span></li>
+<li><strong>r</strong><em>&lt;distribution-name&gt;</em> <span class="math inline">\(:=\)</span> <strong>r</strong>andom deviates, <em>i.e.</em> (<em>psuedo</em>) random number generator for a given distribution</li>
+<li><em>Where &lt;distribution-name&gt;</em> <span class="math inline">\(=\)</span> Normal, uniform, lognormal, Student’s <span class="math inline">\(t\)</span>, Poisson, binormal, Weibull … see <code class="sourceCode r">?<span class="kw">distributions</span>()</code> for more information</li>
+</ul>
+<p>To give some quick examples (we will explore these in more detail later in this chapter):</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>R Code</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">1</span>)</code></td>
+<td>Generates <span class="math inline">\(x_1\)</span> where <span class="math inline">\(X \sim \mathcal{N}(0,\,1)\)</span></td>
+</tr>
+<tr class="even">
+<td><code class="sourceCode r"><span class="kw">rnorm</span>(y, <span class="dt">mean=</span><span class="dv">10</span>, <span class="dt">sd=</span><span class="dv">2</span>)</code></td>
+<td>Generates <span class="math inline">\(\{y_1,\,y_2,\,\dots\}\)</span> with <span class="math inline">\(Y \sim \mathcal{N}(10,\,2^2)\)</span></td>
+</tr>
+<tr class="odd">
+<td><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">3</span>, <span class="dt">min=</span><span class="dv">5</span>, <span class="dt">max=</span><span class="dv">10</span>)</code></td>
+<td>Generates <span class="math inline">\(\{z_1,\,z_2,\,z_3\}\)</span> where <span class="math inline">\(Z \sim \mathcal{U}(5,\,10)\)</span></td>
+</tr>
+<tr class="even">
+<td><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dv">4</span>, <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></td>
+<td>Computes <span class="math inline">\(\boldsymbol{P}(X = 4)\)</span> where <span class="math inline">\(X \sim Bin(5,\,0.5)\)</span></td>
+</tr>
+<tr class="odd">
+<td><code class="sourceCode r"><span class="kw">pgamma</span>(<span class="fl">0.2</span>, <span class="dt">shape=</span><span class="dv">2</span>, <span class="dt">rate=</span><span class="dv">2</span>)</code></td>
+<td>Computes <span class="math inline">\(F_Y(0.2)\)</span> where <span class="math inline">\(Y \sim \mathcal{\Gamma}(2,\,2)\)</span>, i.e. <span class="math inline">\(\boldsymbol{P}(Y\leq 0.2)\)</span></td>
+</tr>
+<tr class="even">
+<td><code class="sourceCode r"><span class="kw">qexp</span>(<span class="fl">0.5</span>, <span class="dt">rate =</span> <span class="dv">2</span>)</code></td>
+<td>Determines smallest value of <span class="math inline">\(z\)</span> for <span class="math inline">\(\boldsymbol{P}(Z \leq z) = 0.5\)</span> where <span class="math inline">\(Z \sim Exp(2)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="discrete-probability-distributions" class="section level2">
+<h2><span class="header-section-number">2.2</span> Discrete probability distributions</h2>
+<p>We will consider how to interact with the following discrete probability distributions in <code>R</code>:</p>
+<ul>
+<li>Geometric</li>
+<li>Binomial</li>
+<li>Negative binomial</li>
+<li>Hypergeometric</li>
+<li>Poisson</li>
+<li>Uniform (on a finite set)</li>
+</ul>
+<p>For each distribution above we will determine how to calculate:</p>
+<ul>
+<li>A random deviate following the discrete distribution <span class="math inline">\(X\)</span>,</li>
+<li>The probability mass function (“<em>PMF</em>”), <span class="math inline">\(P(X = k)\)</span> for distribution <span class="math inline">\(X\)</span> and <span class="math inline">\(-\infty &lt; k &lt; \infty\)</span> (noting the <span class="math inline">\(PMF = 0\)</span> for most values of <span class="math inline">\(k\)</span>),</li>
+<li>The cumulative distribution function (“<em>CDF</em>”), <span class="math inline">\(P(X \leq k)\)</span>,</li>
+<li>A range of PMFs, i.e. <span class="math inline">\(P(k_1 &lt;= X &lt;= k_2)\)</span>, and</li>
+<li>The quantile function to find <span class="math inline">\(k\)</span> representing the value such that <span class="math inline">\(P(X \leq k) = p\)</span>, i.e. the <em>pth</em> percentile.</li>
+</ul>
+<p>We will finish off with a plot of the distribution.</p>
+<div id="geometric-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Geometric distribution</h3>
+<p>The geometric probability distribution (<span class="math inline">\(X\)</span>) can be defined by the number of failures (<span class="math inline">\(k\)</span>) in Bernoulli trials before achieving a success. A Bernoulli trial is a random experiment with exactly two outcomes, {“<em>success</em>”, “<em>failure</em>”}, in which the probability of success is constant in every experiment. More formally, if we have <span class="math inline">\(k \in \{0,\,1,\,2,\, \dots \}\)</span> independent, identically distributed (“<em>i.i.d.</em>”) Bernoulli trials before a “<em>success</em>” with the <span class="math inline">\(P(\)</span>“<em>success</em>”<span class="math inline">\()\)</span> on each trial defined as <span class="math inline">\(p\)</span>, then:</p>
+<p><span class="math display">\[P(X = k) = (1 - p)^{k}p\]</span></p>
+<p>We have <span class="math inline">\(X \sim Geo(p)\)</span> with <span class="math inline">\(p \in (0, 1]\)</span>.</p>
+<p>In <code>R</code> we can generate random deviates following a geometric distribution using the function <code class="sourceCode r"><span class="kw">rgeom</span>(n, prob)</code> where:</p>
+<ul>
+<li><em>n</em> is the <em>number</em> of random deviates we want to generate, and</li>
+<li><em>prob</em> is the <em>probability</em> of success in any given Bernoulli trial.</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="univarite-probability-distributions.html#cb21-1"></a><span class="co"># Guarantee reproducibility</span></span>
+<span id="cb21-2"><a href="univarite-probability-distributions.html#cb21-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb21-3"><a href="univarite-probability-distributions.html#cb21-3"></a></span>
+<span id="cb21-4"><a href="univarite-probability-distributions.html#cb21-4"></a><span class="co"># Generate 5 random deviates following X~Geo(0.25)</span></span>
+<span id="cb21-5"><a href="univarite-probability-distributions.html#cb21-5"></a><span class="kw">rgeom</span>(<span class="dv">5</span>, <span class="fl">0.25</span>)</span></code></pre></div>
+<pre><code>## [1] 1 1 0 1 2</code></pre>
+<p>If we wanted to find the x<sup>th</sup> percentile of <span class="math inline">\(X \sim Geo(p)\)</span> we would use the quantile function, <code class="sourceCode r"><span class="kw">qgeom</span>(p, prob)</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="univarite-probability-distributions.html#cb23-1"></a><span class="co"># Find the 99th percentile of X~Geo(0.25)</span></span>
+<span id="cb23-2"><a href="univarite-probability-distributions.html#cb23-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">qgeom</span>(<span class="fl">0.99</span>, <span class="fl">0.25</span>)</span>
+<span id="cb23-3"><a href="univarite-probability-distributions.html#cb23-3"></a></span>
+<span id="cb23-4"><a href="univarite-probability-distributions.html#cb23-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb23-5"><a href="univarite-probability-distributions.html#cb23-5"></a>  <span class="st">&quot;The 99th percentile of X~Geo(0.25) is &quot;</span>,</span>
+<span id="cb23-6"><a href="univarite-probability-distributions.html#cb23-6"></a>  percentile_<span class="dv">99</span>,</span>
+<span id="cb23-7"><a href="univarite-probability-distributions.html#cb23-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb23-8"><a href="univarite-probability-distributions.html#cb23-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;The 99th percentile of X~Geo(0.25) is 16.&quot;</code></pre>
+<p>If we wish to find <span class="math inline">\(P(X \leq k)\)</span> then we need to use the function for the cumulative distribution function, <code class="sourceCode r"><span class="kw">pgeom</span>(q, prob)</code> where:</p>
+<ul>
+<li><em>q</em> equates to <span class="math inline">\(k\)</span> failures before success in a sequence of i.i.d. Bernoulli trials,</li>
+<li><em>prob</em> is the <em>probability</em> of success in any given Bernoulli trial.</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="univarite-probability-distributions.html#cb25-1"></a><span class="co"># Find P(X &lt;= 7) with X~Geo(0.25)</span></span>
+<span id="cb25-2"><a href="univarite-probability-distributions.html#cb25-2"></a>prob_geom &lt;-<span class="st"> </span><span class="kw">pgeom</span>(<span class="dv">7</span>, <span class="fl">0.25</span>)</span>
+<span id="cb25-3"><a href="univarite-probability-distributions.html#cb25-3"></a></span>
+<span id="cb25-4"><a href="univarite-probability-distributions.html#cb25-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb25-5"><a href="univarite-probability-distributions.html#cb25-5"></a>  <span class="st">&quot;P(X &lt;= 7) with X~Geo(0.25) is &quot;</span>,</span>
+<span id="cb25-6"><a href="univarite-probability-distributions.html#cb25-6"></a>  <span class="kw">format</span>(prob_geom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb25-7"><a href="univarite-probability-distributions.html#cb25-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb25-8"><a href="univarite-probability-distributions.html#cb25-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(X &lt;= 7) with X~Geo(0.25) is 0.8999.&quot;</code></pre>
+<p>We can find <span class="math inline">\(P(X = k)\)</span> using the <code class="sourceCode r"><span class="kw">dgeom</span>()</code> function call:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="univarite-probability-distributions.html#cb27-1"></a><span class="co"># Find P(X = 7) with X~Geo(0.25)</span></span>
+<span id="cb27-2"><a href="univarite-probability-distributions.html#cb27-2"></a>prob_geom &lt;-<span class="st"> </span><span class="kw">dgeom</span>(<span class="dv">7</span>, <span class="fl">0.25</span>)</span></code></pre></div>
+<p>We find that <span class="math inline">\(P(X = 7) =\)</span> 0.0333709716796875.</p>
+<p>It helps to visualise the probability distribution. We <em>can</em> do this in base <code>R</code> with the <code class="sourceCode r"><span class="kw">plot</span>()</code> function. However for illustrative purposes we will use the <code>ggplot2</code> package from the <a href="https://www.tidyverse.org/packages/"><code>tidyverse</code></a> suite of packages. <code>ggplot2</code> allows for rich visualisations<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> using a consistent syntax.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="univarite-probability-distributions.html#cb28-1"></a><span class="co"># Plot the distribution function of X~Geo(0.25)</span></span>
+<span id="cb28-2"><a href="univarite-probability-distributions.html#cb28-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb28-3"><a href="univarite-probability-distributions.html#cb28-3"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">rgeom</span>(<span class="dv">1000</span>, <span class="fl">0.25</span>)) </span>
+<span id="cb28-4"><a href="univarite-probability-distributions.html#cb28-4"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-geometric-5-1.png" width="672" /></p>
+</div>
+<div id="binomial-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Binomial distribution</h3>
+<p>The binomial probability distribution (<span class="math inline">\(Y\)</span>) can be defined by the number of successes in a sequence of <span class="math inline">\(n\)</span> i.i.d. Bernoulli trials. A Bernoulli trial is a random experiment with exactly two outcomes, {“<em>success</em>”, “<em>failure</em>”}, wherein the probability of success is <span class="math inline">\(p\)</span>. We often state the probability of failure as <span class="math inline">\(q = 1 - p\)</span> for convenience. More formally, if we have <span class="math inline">\(k \in \{0,\,1,\,2,\, \dots,\, n \}\)</span> successes given <span class="math inline">\(n\)</span> i.i.d. Bernoulli trials with the <span class="math inline">\(P(\)</span>“<em>success</em>”<span class="math inline">\()\)</span> on each trial defined as <span class="math inline">\(p\)</span>, then:</p>
+<p><span class="math display">\[P(Y = k) = \binom{n}{k}p^k(1 - p)^{n - k}\]</span></p>
+<p>It can help to think of this as:</p>
+<ul>
+<li><span class="math inline">\(p^k\)</span> chance of <span class="math inline">\(k\)</span> successes,</li>
+<li><span class="math inline">\((1 - p)^{n - k}\)</span> chance of <span class="math inline">\(n - k\)</span> failures,</li>
+<li>the ordering of the <span class="math inline">\(k\)</span> successes can occur anywhere within the <span class="math inline">\(n\)</span> trials, hence <span class="math inline">\(\binom{n}{k}\)</span>.</li>
+</ul>
+<p>We can generate random deviates following the binomial distribution <span class="math inline">\(Y \sim Bin(n,\,p)\)</span> using <code class="sourceCode r"><span class="kw">rbinom</span>(n, size, prob)</code> where:</p>
+<ul>
+<li><em>n</em> is the <em>number</em> of random deviates we want to generate,</li>
+<li><em>size</em> is the number of i.i.d. Bernoulli trials performed, and</li>
+<li><em>prob</em> is the probability of success in any given trial.</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="univarite-probability-distributions.html#cb29-1"></a><span class="co"># Generate 5 random deviates on Y~Bin(10, 0.55)</span></span>
+<span id="cb29-2"><a href="univarite-probability-distributions.html#cb29-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb29-3"><a href="univarite-probability-distributions.html#cb29-3"></a><span class="kw">rbinom</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="fl">0.55</span>)</span></code></pre></div>
+<pre><code>## [1] 3 3 6 4 5</code></pre>
+<p>To find <span class="math inline">\(P(Y &lt;= k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">pbinom</span>(p, size, prob)</code> where:</p>
+<ul>
+<li><em>p</em> is the probability of interest,</li>
+<li><em>size</em> is the number of i.i.d. Bernoulli trials performed, and</li>
+<li><em>prob</em> is the probability of success in any given trial.</li>
+</ul>
+<p>Suppose we were told the probability of having a boy at birth was 0.5131451<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. Additionally, suppose we were told that there were 1,264 births<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>. Given this, we are curious to know what is the probability of there being less than 632 boys (<em>i.e. &lt; 50%</em>) amongst the new babies.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="univarite-probability-distributions.html#cb31-1"></a><span class="co"># Find P(Y &lt;= 632) with Y~Binom(1264, 0.5131451)</span></span>
+<span id="cb31-2"><a href="univarite-probability-distributions.html#cb31-2"></a>prob_binom &lt;-<span class="st"> </span><span class="kw">pbinom</span>(<span class="dv">632</span>, <span class="dv">1264</span>, <span class="fl">0.5131451</span>)</span>
+<span id="cb31-3"><a href="univarite-probability-distributions.html#cb31-3"></a></span>
+<span id="cb31-4"><a href="univarite-probability-distributions.html#cb31-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb31-5"><a href="univarite-probability-distributions.html#cb31-5"></a>  <span class="st">&quot;P(Y &lt;= 632) with Y~Binom(1264, 0.5131451) is &quot;</span>,</span>
+<span id="cb31-6"><a href="univarite-probability-distributions.html#cb31-6"></a>  <span class="kw">format</span>(prob_binom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb31-7"><a href="univarite-probability-distributions.html#cb31-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb31-8"><a href="univarite-probability-distributions.html#cb31-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Y &lt;= 632) with Y~Binom(1264, 0.5131451) is 0.1822.&quot;</code></pre>
+<p>To find <span class="math inline">\(P(Y = k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">dbinom</span>(x, size, prob)</code> where:</p>
+<ul>
+<li><em>x</em> is the quantile of interest,</li>
+<li><em>size</em> is the number of i.i.d Bernoulli trials performed, and</li>
+<li><em>prob</em> is the probability of success in any given trial.</li>
+</ul>
+<p>Throwing a fair coin, we are curious to compute the probability of observing 4 heads in a sequence of 5 tosses:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="univarite-probability-distributions.html#cb33-1"></a><span class="co"># Find P(Y = 4) where Y~Binom(5, 0.5)</span></span>
+<span id="cb33-2"><a href="univarite-probability-distributions.html#cb33-2"></a>prob_binom &lt;-<span class="st"> </span><span class="kw">dbinom</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb33-3"><a href="univarite-probability-distributions.html#cb33-3"></a></span>
+<span id="cb33-4"><a href="univarite-probability-distributions.html#cb33-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb33-5"><a href="univarite-probability-distributions.html#cb33-5"></a>  <span class="st">&quot;P(Y = 4) with Y~Binom(5, 0.5) is &quot;</span>,</span>
+<span id="cb33-6"><a href="univarite-probability-distributions.html#cb33-6"></a>  <span class="kw">format</span>(prob_binom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb33-7"><a href="univarite-probability-distributions.html#cb33-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb33-8"><a href="univarite-probability-distributions.html#cb33-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Y = 4) with Y~Binom(5, 0.5) is 0.1562.&quot;</code></pre>
+<p>If we wanted to find <span class="math inline">\(P(k_1 \leq Y \leq k_2)\)</span> we can also use the function <code class="sourceCode r"><span class="kw">dbinom</span>(x, size, prob)</code> with <em>x</em> entered as a vector and summing over the output.</p>
+<p>Continuing the fair coin example, we are curious what is the probability of observing at least 1 head and at most 3 heads in a sequence of 5 tosses:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="univarite-probability-distributions.html#cb35-1"></a><span class="co"># Find P(1 &lt;= Y &lt;= 3) where Y~Binom(5, 0.5)</span></span>
+<span id="cb35-2"><a href="univarite-probability-distributions.html#cb35-2"></a>prob_binom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb35-3"><a href="univarite-probability-distributions.html#cb35-3"></a></span>
+<span id="cb35-4"><a href="univarite-probability-distributions.html#cb35-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb35-5"><a href="univarite-probability-distributions.html#cb35-5"></a>  <span class="st">&quot;P(1 &lt;= Y &lt;= 3) with Y~Binom(5, 0.5) is &quot;</span>,</span>
+<span id="cb35-6"><a href="univarite-probability-distributions.html#cb35-6"></a>  <span class="kw">format</span>(prob_binom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb35-7"><a href="univarite-probability-distributions.html#cb35-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb35-8"><a href="univarite-probability-distributions.html#cb35-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(1 &lt;= Y &lt;= 3) with Y~Binom(5, 0.5) is 0.7812.&quot;</code></pre>
+<p>When we are interested in finding the <em>yth</em> percentile we can use the quantile function, <code class="sourceCode r"><span class="kw">qbinom</span>(p, size, prob)</code> where:</p>
+<ul>
+<li><em>p</em> is the percentile of interest,</li>
+<li><em>size</em> is the number of i.i.d Bernoulli trials performed, and</li>
+<li><em>prob</em> is the probability of success in any given Bernoulli trial.</li>
+</ul>
+<p>Continuing the baby boys example, we now are curious what is the 99th percentile of baby births being boys. Recall that the probability (<em>p</em>) of having a boy at birth was 0.5131451 and that there were 1,264 births (<em>n</em>) in Guildford in 2019.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="univarite-probability-distributions.html#cb37-1"></a><span class="co"># Find the 99th percentile of Y~Binom(1264, 0.5131451)</span></span>
+<span id="cb37-2"><a href="univarite-probability-distributions.html#cb37-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">qbinom</span>(<span class="fl">0.99</span>, <span class="dv">1264</span>, <span class="fl">0.5131451</span>)</span>
+<span id="cb37-3"><a href="univarite-probability-distributions.html#cb37-3"></a></span>
+<span id="cb37-4"><a href="univarite-probability-distributions.html#cb37-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb37-5"><a href="univarite-probability-distributions.html#cb37-5"></a>  <span class="st">&quot;The 99th percentile of Y~Binom(1264, 0.5131451) is &quot;</span>,</span>
+<span id="cb37-6"><a href="univarite-probability-distributions.html#cb37-6"></a>  percentile_<span class="dv">99</span>,</span>
+<span id="cb37-7"><a href="univarite-probability-distributions.html#cb37-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb37-8"><a href="univarite-probability-distributions.html#cb37-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;The 99th percentile of Y~Binom(1264, 0.5131451) is 690.&quot;</code></pre>
+<p>Finally, we finish with a plot of binomial distributions and note that with large <span class="math inline">\(n\)</span> the shape of the distribution begins to form the normal distribution (as long as <span class="math inline">\(p\)</span> is not near the extremes of 0 or 1).</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="univarite-probability-distributions.html#cb39-1"></a><span class="co"># Plot the distribution function of X, Y, Z with:</span></span>
+<span id="cb39-2"><a href="univarite-probability-distributions.html#cb39-2"></a><span class="co"># X,Y,Z~Binom(n, p) for various {n, p}</span></span>
+<span id="cb39-3"><a href="univarite-probability-distributions.html#cb39-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb39-4"><a href="univarite-probability-distributions.html#cb39-4"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb39-5"><a href="univarite-probability-distributions.html#cb39-5"></a></span>
+<span id="cb39-6"><a href="univarite-probability-distributions.html#cb39-6"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb39-7"><a href="univarite-probability-distributions.html#cb39-7"></a>  <span class="dt">dist_types =</span> <span class="kw">factor</span>(    </span>
+<span id="cb39-8"><a href="univarite-probability-distributions.html#cb39-8"></a>    <span class="kw">rep</span>(<span class="kw">c</span>(</span>
+<span id="cb39-9"><a href="univarite-probability-distributions.html#cb39-9"></a>      <span class="st">&quot;n = 20, p = 0.5&quot;</span>,</span>
+<span id="cb39-10"><a href="univarite-probability-distributions.html#cb39-10"></a>      <span class="st">&quot;n = 20, p = 0.7&quot;</span>,</span>
+<span id="cb39-11"><a href="univarite-probability-distributions.html#cb39-11"></a>      <span class="st">&quot;n = 40, p = 0.5&quot;</span></span>
+<span id="cb39-12"><a href="univarite-probability-distributions.html#cb39-12"></a>      ), <span class="dt">each =</span> <span class="dv">1000</span></span>
+<span id="cb39-13"><a href="univarite-probability-distributions.html#cb39-13"></a>    )</span>
+<span id="cb39-14"><a href="univarite-probability-distributions.html#cb39-14"></a>  ),</span>
+<span id="cb39-15"><a href="univarite-probability-distributions.html#cb39-15"></a>  <span class="dt">dist_values =</span> <span class="kw">c</span>(</span>
+<span id="cb39-16"><a href="univarite-probability-distributions.html#cb39-16"></a>    <span class="kw">rbinom</span>(<span class="dv">1000</span>, <span class="dv">20</span>, <span class="fl">0.5</span>),</span>
+<span id="cb39-17"><a href="univarite-probability-distributions.html#cb39-17"></a>    <span class="kw">rbinom</span>(<span class="dv">1000</span>, <span class="dv">20</span>, <span class="fl">0.7</span>),</span>
+<span id="cb39-18"><a href="univarite-probability-distributions.html#cb39-18"></a>    <span class="kw">rbinom</span>(<span class="dv">1000</span>, <span class="dv">40</span>, <span class="fl">0.5</span>)</span>
+<span id="cb39-19"><a href="univarite-probability-distributions.html#cb39-19"></a>  )</span>
+<span id="cb39-20"><a href="univarite-probability-distributions.html#cb39-20"></a>) </span>
+<span id="cb39-21"><a href="univarite-probability-distributions.html#cb39-21"></a></span>
+<span id="cb39-22"><a href="univarite-probability-distributions.html#cb39-22"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> dist_values, <span class="dt">fill =</span> dist_types)) <span class="op">+</span></span>
+<span id="cb39-23"><a href="univarite-probability-distributions.html#cb39-23"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb39-24"><a href="univarite-probability-distributions.html#cb39-24"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distribution values&quot;</span>) <span class="op">+</span></span>
+<span id="cb39-25"><a href="univarite-probability-distributions.html#cb39-25"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb39-26"><a href="univarite-probability-distributions.html#cb39-26"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb39-27"><a href="univarite-probability-distributions.html#cb39-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb39-28"><a href="univarite-probability-distributions.html#cb39-28"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of binomial distributions for various n, p&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-binomial-6-1.png" width="672" /></p>
+</div>
+<div id="negative-binomial-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Negative binomial distribution</h3>
+<p>The negative binomial distribution (<span class="math inline">\(Z\)</span>) can be defined by the number of failures in a sequence of <span class="math inline">\(n\)</span> independent, identically distributed (“<em>i.i.d.</em>”) Bernoulli trials before a specified number of successes, <span class="math inline">\(r\)</span>, occurs. More formally, if we have, <span class="math inline">\(r &gt;0\)</span> number of successes, <span class="math inline">\(k\)</span> number of failures, <span class="math inline">\(p\)</span> probability of success then:</p>
+<p><span class="math display">\[P(Z = k) = \binom{k+r-1}{k}(1-p)^{k}p^{r}\]</span></p>
+<p>We can see that with <span class="math inline">\(r = 1\)</span>, the binomial distribution is a special case of the more general negative binomial distribution.</p>
+<p>Let us begin by generate random deviates from the negative binomial distribution, <span class="math inline">\(Z \sim NegBin(r, p)\)</span>, using <code class="sourceCode r"><span class="kw">rnbinom</span>(n, size, prob)</code> where:</p>
+<ul>
+<li><em>n</em> is the <em>number</em> of random deviates we want to generate,</li>
+<li><em>size</em> is the target number of successes from i.i.d. Bernoulli trials, and</li>
+<li><em>prob</em> is the probability of success in any given trial</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="univarite-probability-distributions.html#cb40-1"></a><span class="co"># Generate random deviates from the negative binomial distribution</span></span>
+<span id="cb40-2"><a href="univarite-probability-distributions.html#cb40-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb40-3"><a href="univarite-probability-distributions.html#cb40-3"></a><span class="kw">rnbinom</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="fl">0.5</span>)</span></code></pre></div>
+<pre><code>## [1] 12  6 10 14 16</code></pre>
+<p>To find <span class="math inline">\(P(Z &lt;= k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">pnbinom</span>(q, size, prob)</code> where:</p>
+<ul>
+<li><em>q</em> is the quantile of interest,</li>
+<li><em>size</em> is the target number of successes from i.i.d. Bernoulli trials,</li>
+<li><em>prob</em> is the probability of success in any given trial.</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="univarite-probability-distributions.html#cb42-1"></a><span class="co"># Find P(Z &lt;= 2) with Z~NegBin(5, 0.5)</span></span>
+<span id="cb42-2"><a href="univarite-probability-distributions.html#cb42-2"></a>prob_nbinom &lt;-<span class="st"> </span><span class="kw">pnbinom</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb42-3"><a href="univarite-probability-distributions.html#cb42-3"></a></span>
+<span id="cb42-4"><a href="univarite-probability-distributions.html#cb42-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb42-5"><a href="univarite-probability-distributions.html#cb42-5"></a>  <span class="st">&quot;P(Z &lt;= 2) with Z~NegBin(5, 0.5) is &quot;</span>,</span>
+<span id="cb42-6"><a href="univarite-probability-distributions.html#cb42-6"></a>  <span class="kw">format</span>(prob_nbinom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb42-7"><a href="univarite-probability-distributions.html#cb42-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb42-8"><a href="univarite-probability-distributions.html#cb42-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Z &lt;= 2) with Z~NegBin(5, 0.5) is 0.2266.&quot;</code></pre>
+<p>To find <span class="math inline">\(P(Z = k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">dnbinom</span>(x, size, prob)</code> where:</p>
+<ul>
+<li><em>x</em> is the quantile of interest,</li>
+<li><em>size</em> is the target number of successes from i.i.d. Bernoulli trials, and</li>
+<li><em>prob</em> is the probability of success in any given trial.</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="univarite-probability-distributions.html#cb44-1"></a><span class="co"># Find P(Z = 2) where Z~NegBin(5, 0.5)</span></span>
+<span id="cb44-2"><a href="univarite-probability-distributions.html#cb44-2"></a>prob_nbinom &lt;-<span class="st"> </span><span class="kw">dnbinom</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb44-3"><a href="univarite-probability-distributions.html#cb44-3"></a></span>
+<span id="cb44-4"><a href="univarite-probability-distributions.html#cb44-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb44-5"><a href="univarite-probability-distributions.html#cb44-5"></a>  <span class="st">&quot;P(Z = 2) with Z~NegBin(5, 0.5) is &quot;</span>,</span>
+<span id="cb44-6"><a href="univarite-probability-distributions.html#cb44-6"></a>  <span class="kw">format</span>(prob_nbinom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb44-7"><a href="univarite-probability-distributions.html#cb44-7"></a>  <span class="st">&quot;.&quot;</span>  </span>
+<span id="cb44-8"><a href="univarite-probability-distributions.html#cb44-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Z = 2) with Z~NegBin(5, 0.5) is 0.1172.&quot;</code></pre>
+<p>We can also calculate <span class="math inline">\(P(k_1 \leq Z \leq k_2)\)</span> with <code class="sourceCode r"><span class="kw">dnbinom</span>(x, size, prob)</code> by entering <em>x</em> as a vector input and summing over the output.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="univarite-probability-distributions.html#cb46-1"></a><span class="co"># Find P(1 &lt;= Z &lt;= 3) with Z~NegBin(5, 0.5)</span></span>
+<span id="cb46-2"><a href="univarite-probability-distributions.html#cb46-2"></a>prob_nbinom &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">dnbinom</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.5</span>))</span>
+<span id="cb46-3"><a href="univarite-probability-distributions.html#cb46-3"></a></span>
+<span id="cb46-4"><a href="univarite-probability-distributions.html#cb46-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb46-5"><a href="univarite-probability-distributions.html#cb46-5"></a>  <span class="st">&quot;P(1 &lt;= Z &lt;= 3) with Z~NegBin(5, 0.5) is &quot;</span>,</span>
+<span id="cb46-6"><a href="univarite-probability-distributions.html#cb46-6"></a>  <span class="kw">format</span>(prob_nbinom, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb46-7"><a href="univarite-probability-distributions.html#cb46-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb46-8"><a href="univarite-probability-distributions.html#cb46-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(1 &lt;= Z &lt;= 3) with Z~NegBin(5, 0.5) is 0.332.&quot;</code></pre>
+<p>When we are interested in finding the <em>zth</em> percentile we can make use of the quantile function, <code class="sourceCode r"><span class="kw">qnbinom</span>(p, size, prob)</code> where:</p>
+<ul>
+<li><em>p</em> is the percentile of interest,</li>
+<li><em>size</em> is the target number of successes from i.i.d. Bernoulli trials, and</li>
+<li><em>prob</em> is the probability of success in any given trial.</li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="univarite-probability-distributions.html#cb48-1"></a><span class="co"># Find the 99th percentile of Z~NegBin(100, 0.5)</span></span>
+<span id="cb48-2"><a href="univarite-probability-distributions.html#cb48-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">qnbinom</span>(<span class="fl">0.99</span>, <span class="dv">100</span>, <span class="fl">0.5</span>)</span>
+<span id="cb48-3"><a href="univarite-probability-distributions.html#cb48-3"></a></span>
+<span id="cb48-4"><a href="univarite-probability-distributions.html#cb48-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb48-5"><a href="univarite-probability-distributions.html#cb48-5"></a>  <span class="st">&quot;The 99th percentile of Z~NegBin(100, 0.5) is &quot;</span>,</span>
+<span id="cb48-6"><a href="univarite-probability-distributions.html#cb48-6"></a>  percentile_<span class="dv">99</span>,</span>
+<span id="cb48-7"><a href="univarite-probability-distributions.html#cb48-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb48-8"><a href="univarite-probability-distributions.html#cb48-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;The 99th percentile of Z~NegBin(100, 0.5) is 135.&quot;</code></pre>
+<p>Finally, we finish with a plot of the negative binomial distribution:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="univarite-probability-distributions.html#cb50-1"></a><span class="co"># Plot the distribution function of X, Y, Z with: </span></span>
+<span id="cb50-2"><a href="univarite-probability-distributions.html#cb50-2"></a><span class="co"># X,Y,Z~NegBin(r, p) for various {r, p}</span></span>
+<span id="cb50-3"><a href="univarite-probability-distributions.html#cb50-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb50-4"><a href="univarite-probability-distributions.html#cb50-4"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb50-5"><a href="univarite-probability-distributions.html#cb50-5"></a></span>
+<span id="cb50-6"><a href="univarite-probability-distributions.html#cb50-6"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb50-7"><a href="univarite-probability-distributions.html#cb50-7"></a>  <span class="dt">dist_types =</span> <span class="kw">factor</span>(</span>
+<span id="cb50-8"><a href="univarite-probability-distributions.html#cb50-8"></a>    <span class="kw">rep</span>(<span class="kw">c</span>(</span>
+<span id="cb50-9"><a href="univarite-probability-distributions.html#cb50-9"></a>      <span class="st">&quot;r = 5, p = 0.6&quot;</span>,</span>
+<span id="cb50-10"><a href="univarite-probability-distributions.html#cb50-10"></a>      <span class="st">&quot;r = 5, p = 0.5&quot;</span>,</span>
+<span id="cb50-11"><a href="univarite-probability-distributions.html#cb50-11"></a>      <span class="st">&quot;r = 10, p = 0.4&quot;</span></span>
+<span id="cb50-12"><a href="univarite-probability-distributions.html#cb50-12"></a>    ), <span class="dt">each =</span> <span class="dv">1000</span></span>
+<span id="cb50-13"><a href="univarite-probability-distributions.html#cb50-13"></a>    )</span>
+<span id="cb50-14"><a href="univarite-probability-distributions.html#cb50-14"></a>  ),</span>
+<span id="cb50-15"><a href="univarite-probability-distributions.html#cb50-15"></a>  <span class="dt">dist_values =</span> <span class="kw">c</span>(</span>
+<span id="cb50-16"><a href="univarite-probability-distributions.html#cb50-16"></a>    <span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dv">5</span>, <span class="fl">0.6</span>),</span>
+<span id="cb50-17"><a href="univarite-probability-distributions.html#cb50-17"></a>    <span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dv">5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb50-18"><a href="univarite-probability-distributions.html#cb50-18"></a>    <span class="kw">rnbinom</span>(<span class="dv">1000</span>, <span class="dv">10</span>, <span class="fl">0.4</span>)</span>
+<span id="cb50-19"><a href="univarite-probability-distributions.html#cb50-19"></a>  )</span>
+<span id="cb50-20"><a href="univarite-probability-distributions.html#cb50-20"></a>)</span>
+<span id="cb50-21"><a href="univarite-probability-distributions.html#cb50-21"></a></span>
+<span id="cb50-22"><a href="univarite-probability-distributions.html#cb50-22"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> dist_values, <span class="dt">fill =</span> dist_types)) <span class="op">+</span></span>
+<span id="cb50-23"><a href="univarite-probability-distributions.html#cb50-23"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb50-24"><a href="univarite-probability-distributions.html#cb50-24"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distribution values&quot;</span>) <span class="op">+</span></span>
+<span id="cb50-25"><a href="univarite-probability-distributions.html#cb50-25"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb50-26"><a href="univarite-probability-distributions.html#cb50-26"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb50-27"><a href="univarite-probability-distributions.html#cb50-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb50-28"><a href="univarite-probability-distributions.html#cb50-28"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of negative binomial distributions for various r, p&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-negative-binomial-6-1.png" width="672" /></p>
+</div>
+<div id="hypergeometric-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Hypergeometric distribution</h3>
+<p>The hypergeometric distribution (<span class="math inline">\(X\)</span>) can be defined by the probability of <span class="math inline">\(k\)</span> successes in <span class="math inline">\(n\)</span> draws <strong>without</strong> replacement from a finite population <span class="math inline">\(N\)</span> that contains exactly <span class="math inline">\(K\)</span> “<em>success</em>” objects/states.</p>
+<p><span class="math display">\[P(X = k) = \frac{ \binom{K}{k} \binom{N - K}{n - k} }{ \binom{N}{n} }\]</span></p>
+<p>We begin by generating random deviates from the hypergeometric distribution, <span class="math inline">\(X \sim Hyper(N, K, n)\)</span>, using <code class="sourceCode r"><span class="kw">rhyper</span>(nn, m, n, k)</code> where:</p>
+<ul>
+<li><em>nn</em> is <em>number</em> of observations we want to generate,</li>
+<li><em>m</em> is number of “success” objects/states in the population <span class="math inline">\(N\)</span>,</li>
+<li><em>n</em> is number of “failure” objects/states in the population <span class="math inline">\(N\)</span>, and</li>
+<li><em>k</em> is the number of objects drawn / states observed</li>
+</ul>
+<p>Traditionally we have defined the population <span class="math inline">\(N\)</span> as an urn containing <em>m</em> white balls and <em>n</em> black balls and this is how the distribution arguments are specified in the <code class="sourceCode r">stats</code> package. Note that <em>m</em> <span class="math inline">\(= K\)</span> and <em>n</em> <span class="math inline">\(= N - K\)</span>.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="univarite-probability-distributions.html#cb51-1"></a><span class="co"># Generate random deviates on X~Hyper(N = 100, K = 90, n = 10)</span></span>
+<span id="cb51-2"><a href="univarite-probability-distributions.html#cb51-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb51-3"><a href="univarite-probability-distributions.html#cb51-3"></a><span class="kw">rhyper</span>(<span class="dv">5</span>, <span class="dv">90</span>, <span class="dv">100</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## [1]  8  8 10  8  9</code></pre>
+<p>In the above random deviate generation we specified a 90% (<span class="math inline">\(\frac{90}{90 + 10}\)</span>) chance of drawing a “success” object and we made 10 draws from this population of 100 objects. With such a high proportion of “<em>success</em>” objects it was not suprising to note we generated random deviates from this distribution close to 10/10.</p>
+<p>Next we wish to find <span class="math inline">\(P(X &lt;= k)\)</span> which involves using <code class="sourceCode r"><span class="kw">phyper</span>(q, m, n, k)</code> where:</p>
+<ul>
+<li><em>q</em> is the quantile of interest (representing the number of “success” objects in the finite population <span class="math inline">\(N\)</span>),</li>
+<li><em>m</em> is the number of “success” objects in the population <span class="math inline">\(N\)</span>,</li>
+<li><em>n</em> is number of “failure” objects in the population <span class="math inline">\(N\)</span>, and</li>
+<li><em>k</em> is the number of objects drawn</li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="univarite-probability-distributions.html#cb53-1"></a><span class="co"># Find P(X &lt;= 5) with X~Hyper(N = 100, K = 90, n = 10)</span></span>
+<span id="cb53-2"><a href="univarite-probability-distributions.html#cb53-2"></a>prob_hyper &lt;-<span class="st"> </span><span class="kw">phyper</span>(<span class="dv">5</span>, <span class="dv">90</span>, <span class="dv">100</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dv">10</span>)</span>
+<span id="cb53-3"><a href="univarite-probability-distributions.html#cb53-3"></a></span>
+<span id="cb53-4"><a href="univarite-probability-distributions.html#cb53-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb53-5"><a href="univarite-probability-distributions.html#cb53-5"></a>  <span class="st">&quot;With 10 objects drawn from a total 100 possible, &quot;</span>,</span>
+<span id="cb53-6"><a href="univarite-probability-distributions.html#cb53-6"></a>  <span class="st">&quot;P(X &lt;= 3) with X~Hyper() is &quot;</span>,</span>
+<span id="cb53-7"><a href="univarite-probability-distributions.html#cb53-7"></a>  <span class="kw">format</span>(prob_hyper, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb53-8"><a href="univarite-probability-distributions.html#cb53-8"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb53-9"><a href="univarite-probability-distributions.html#cb53-9"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;With 10 objects drawn from a total 100 possible, P(X &lt;= 3) with X~Hyper() is 0.0006716.&quot;</code></pre>
+<p>To find <span class="math inline">\(P(X = k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">dhyper</span>(x, m, n, k)</code> where:</p>
+<ul>
+<li><em>x</em> is the quantile of interest (representing the number of “success” objects in the finite population <span class="math inline">\(N\)</span>),</li>
+<li><em>m</em> is the number of “success” objects in the population <span class="math inline">\(N\)</span>,</li>
+<li><em>n</em> is number of “failure” objects in the population <span class="math inline">\(N\)</span>, and</li>
+<li><em>k</em> is the number of objects drawn</li>
+</ul>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="univarite-probability-distributions.html#cb55-1"></a><span class="co"># Find P(X = 5) with X~Hyper(N = 100, K = 90, n = 10)</span></span>
+<span id="cb55-2"><a href="univarite-probability-distributions.html#cb55-2"></a>prob_hyper &lt;-<span class="st"> </span><span class="kw">dhyper</span>(<span class="dv">5</span>, <span class="dv">90</span>, <span class="dv">100</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dv">10</span>)</span></code></pre></div>
+<p>We can also calculate <span class="math inline">\(P(k_1 \leq X \leq k_2)\)</span> with <code class="sourceCode r"><span class="kw">dhyper</span>(x, m, n, k)</code> by entering <em>x</em> as a vector input and summing over the output.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="univarite-probability-distributions.html#cb56-1"></a><span class="co"># Find P(7 &lt;= X &lt;= 9) with X~Hyper(N = 100, K = 90, n = 10)</span></span>
+<span id="cb56-2"><a href="univarite-probability-distributions.html#cb56-2"></a>prob_hyper &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">dhyper</span>(<span class="dv">7</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">90</span>, <span class="dv">100</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dv">10</span>))</span></code></pre></div>
+<p>When we are interested in finding the <em>xth</em> percentile we can make use of the quantile function, <code class="sourceCode r"><span class="kw">qhyper</span>(p, m, n, k)</code> where:</p>
+<ul>
+<li><em>p</em> is the percentile of interest,</li>
+<li><em>m</em> is the number of “success” objects in the population <span class="math inline">\(N\)</span>,</li>
+<li><em>n</em> is number of “failure” objects in the population <span class="math inline">\(N\)</span>, and</li>
+<li><em>k</em> is the number of objects drawn</li>
+</ul>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="univarite-probability-distributions.html#cb57-1"></a><span class="co"># Find the 99th percentile of X~Hyper(N = 100, K = 90, n = 50)</span></span>
+<span id="cb57-2"><a href="univarite-probability-distributions.html#cb57-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">qhyper</span>(<span class="fl">0.99</span>, <span class="dv">90</span>, <span class="dv">100</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>, <span class="dv">50</span>)</span>
+<span id="cb57-3"><a href="univarite-probability-distributions.html#cb57-3"></a></span>
+<span id="cb57-4"><a href="univarite-probability-distributions.html#cb57-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb57-5"><a href="univarite-probability-distributions.html#cb57-5"></a>  <span class="st">&quot;When we draw 50 objects from a population of &quot;</span>,</span>
+<span id="cb57-6"><a href="univarite-probability-distributions.html#cb57-6"></a>  <span class="st">&quot;90 &#39;success&#39; objects and 10 &#39;failure&#39; objects, &quot;</span>,</span>
+<span id="cb57-7"><a href="univarite-probability-distributions.html#cb57-7"></a>  <span class="st">&quot;we expect the 99th percentile outcome to be &quot;</span>,</span>
+<span id="cb57-8"><a href="univarite-probability-distributions.html#cb57-8"></a>  percentile_<span class="dv">99</span>,</span>
+<span id="cb57-9"><a href="univarite-probability-distributions.html#cb57-9"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb57-10"><a href="univarite-probability-distributions.html#cb57-10"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;When we draw 50 objects from a population of 90 &#39;success&#39; objects and 10 &#39;failure&#39; objects, we expect the 99th percentile outcome to be 48.&quot;</code></pre>
+<p>Finally, we finish with a plot of the hypergeometric distribution:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="univarite-probability-distributions.html#cb59-1"></a><span class="co"># Plot the distribution function of X, Y, Z with:</span></span>
+<span id="cb59-2"><a href="univarite-probability-distributions.html#cb59-2"></a><span class="co"># X,Y,Z~Hyper(N, K, n) for various {N, K, n}</span></span>
+<span id="cb59-3"><a href="univarite-probability-distributions.html#cb59-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb59-4"><a href="univarite-probability-distributions.html#cb59-4"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb59-5"><a href="univarite-probability-distributions.html#cb59-5"></a></span>
+<span id="cb59-6"><a href="univarite-probability-distributions.html#cb59-6"></a>inputs &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb59-7"><a href="univarite-probability-distributions.html#cb59-7"></a>  <span class="st">&quot;N = 500, K = 50, n = 100&quot;</span>,</span>
+<span id="cb59-8"><a href="univarite-probability-distributions.html#cb59-8"></a>  <span class="st">&quot;N = 500, K = 60, n = 200&quot;</span>,</span>
+<span id="cb59-9"><a href="univarite-probability-distributions.html#cb59-9"></a>  <span class="st">&quot;N = 500, K = 70, n = 300&quot;</span></span>
+<span id="cb59-10"><a href="univarite-probability-distributions.html#cb59-10"></a>)</span>
+<span id="cb59-11"><a href="univarite-probability-distributions.html#cb59-11"></a></span>
+<span id="cb59-12"><a href="univarite-probability-distributions.html#cb59-12"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb59-13"><a href="univarite-probability-distributions.html#cb59-13"></a>  <span class="dt">dist_types =</span> <span class="kw">rep</span>(inputs, <span class="dt">each =</span> <span class="dv">1000</span>),</span>
+<span id="cb59-14"><a href="univarite-probability-distributions.html#cb59-14"></a>  <span class="dt">dist_values =</span> <span class="kw">c</span>(</span>
+<span id="cb59-15"><a href="univarite-probability-distributions.html#cb59-15"></a>    <span class="kw">rhyper</span>(<span class="dv">1000</span>, <span class="dv">50</span>, <span class="dv">500</span> <span class="op">-</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">100</span>),</span>
+<span id="cb59-16"><a href="univarite-probability-distributions.html#cb59-16"></a>    <span class="kw">rhyper</span>(<span class="dv">1000</span>, <span class="dv">60</span>, <span class="dv">500</span> <span class="op">-</span><span class="st"> </span><span class="dv">60</span>, <span class="dv">200</span>),</span>
+<span id="cb59-17"><a href="univarite-probability-distributions.html#cb59-17"></a>    <span class="kw">rhyper</span>(<span class="dv">1000</span>, <span class="dv">70</span>, <span class="dv">500</span> <span class="op">-</span><span class="st"> </span><span class="dv">70</span>, <span class="dv">300</span>)</span>
+<span id="cb59-18"><a href="univarite-probability-distributions.html#cb59-18"></a>  )</span>
+<span id="cb59-19"><a href="univarite-probability-distributions.html#cb59-19"></a>)</span>
+<span id="cb59-20"><a href="univarite-probability-distributions.html#cb59-20"></a></span>
+<span id="cb59-21"><a href="univarite-probability-distributions.html#cb59-21"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> dist_values, <span class="dt">fill =</span> dist_types)) <span class="op">+</span></span>
+<span id="cb59-22"><a href="univarite-probability-distributions.html#cb59-22"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-23"><a href="univarite-probability-distributions.html#cb59-23"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distribution values&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-24"><a href="univarite-probability-distributions.html#cb59-24"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-25"><a href="univarite-probability-distributions.html#cb59-25"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb59-26"><a href="univarite-probability-distributions.html#cb59-26"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-27"><a href="univarite-probability-distributions.html#cb59-27"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">breaks =</span> inputs) <span class="op">+</span></span>
+<span id="cb59-28"><a href="univarite-probability-distributions.html#cb59-28"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Hypergeometric distributions for various inputs&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-hypergeometric-6-1.png" width="672" /></p>
+</div>
+<div id="poisson-distribution" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> Poisson distribution</h3>
+<p>The Poisson distribution (<span class="math inline">\(Y\)</span>) is usually defined as the probability of a given number of events occurring (<span class="math inline">\(k\)</span>) in a fixed interval of time where events occur with a <strong>constant mean rate</strong> (<span class="math inline">\(\lambda\)</span>) and <strong>independently</strong> of the time since the last event. More formally, for <span class="math inline">\(\lambda &gt; 0\)</span> and <span class="math inline">\(k = 0,\,1,\,2,\,\dots\,\)</span>:</p>
+<p><span class="math display">\[P(Y = k) = \frac{\lambda^k e^{-k}}{k!}\]</span></p>
+<p>We can generate random deviates from the Poisson distribution <span class="math inline">\(Y \sim Pois(\lambda)\)</span> using <code class="sourceCode r"><span class="kw">rpois</span>(n, lambda)</code> where:</p>
+<ul>
+<li><em>n</em> is the <em>number</em> of random deviates we want to generate, and</li>
+<li><em>lambda</em> is the constant <em>mean</em> rate.</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="univarite-probability-distributions.html#cb60-1"></a><span class="co"># Generate 5 random deviates on Y~Pois(8)</span></span>
+<span id="cb60-2"><a href="univarite-probability-distributions.html#cb60-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb60-3"><a href="univarite-probability-distributions.html#cb60-3"></a><span class="kw">rpois</span>(<span class="dv">5</span>, <span class="dv">8</span>)</span></code></pre></div>
+<pre><code>## [1] 12 13  6 11  9</code></pre>
+<p>To find <span class="math inline">\(P(Y &lt;= k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">ppois</span>(q, lambda)</code> where:</p>
+<ul>
+<li><em>q</em> is the quantile of interest, and</li>
+<li><em>lambda</em> is the constant <em>mean</em> rate.</li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="univarite-probability-distributions.html#cb62-1"></a><span class="co"># Find P(Y &lt;= 5) with Y~Pois(8)</span></span>
+<span id="cb62-2"><a href="univarite-probability-distributions.html#cb62-2"></a>prob_pois &lt;-<span class="st"> </span><span class="kw">ppois</span>(<span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb62-3"><a href="univarite-probability-distributions.html#cb62-3"></a></span>
+<span id="cb62-4"><a href="univarite-probability-distributions.html#cb62-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb62-5"><a href="univarite-probability-distributions.html#cb62-5"></a>  <span class="st">&quot;P(Y &lt;= 5) with Y~Pois(5, 8) is &quot;</span>,</span>
+<span id="cb62-6"><a href="univarite-probability-distributions.html#cb62-6"></a>  <span class="kw">format</span>(prob_pois, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb62-7"><a href="univarite-probability-distributions.html#cb62-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb62-8"><a href="univarite-probability-distributions.html#cb62-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Y &lt;= 5) with Y~Pois(5, 8) is 0.1912.&quot;</code></pre>
+<p>To find <span class="math inline">\(P(Y = k)\)</span> we can use the function <code class="sourceCode r"><span class="kw">dpois</span>(x, lambda)</code> where:</p>
+<ul>
+<li><em>x</em> is the quantile of interest, and</li>
+<li><em>lambda</em> is the constant <em>mean</em> rate.</li>
+</ul>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="univarite-probability-distributions.html#cb64-1"></a><span class="co"># Find P(Y = 5) with Y~Pois(8)</span></span>
+<span id="cb64-2"><a href="univarite-probability-distributions.html#cb64-2"></a>prob_pois &lt;-<span class="st"> </span><span class="kw">dpois</span>(<span class="dv">5</span>, <span class="dv">8</span>)</span>
+<span id="cb64-3"><a href="univarite-probability-distributions.html#cb64-3"></a></span>
+<span id="cb64-4"><a href="univarite-probability-distributions.html#cb64-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb64-5"><a href="univarite-probability-distributions.html#cb64-5"></a>  <span class="st">&quot;P(Y = 5) with Y~Pois(5, 8) is &quot;</span>,</span>
+<span id="cb64-6"><a href="univarite-probability-distributions.html#cb64-6"></a>  <span class="kw">format</span>(prob_pois, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb64-7"><a href="univarite-probability-distributions.html#cb64-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb64-8"><a href="univarite-probability-distributions.html#cb64-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Y = 5) with Y~Pois(5, 8) is 0.0916.&quot;</code></pre>
+<p>If we wanted to find <span class="math inline">\(P(k_1 \leq Y \leq k_2)\)</span> we can also use the function <code class="sourceCode r"><span class="kw">dpois</span>(x, lambda)</code> with <em>x</em> entered as a vector and summing over the output.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="univarite-probability-distributions.html#cb66-1"></a><span class="co"># Find P(4 &lt;= Y &lt;= 6) where Y~Pois(8)</span></span>
+<span id="cb66-2"><a href="univarite-probability-distributions.html#cb66-2"></a>prob_pois &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">dpois</span>(<span class="dv">4</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb66-3"><a href="univarite-probability-distributions.html#cb66-3"></a></span>
+<span id="cb66-4"><a href="univarite-probability-distributions.html#cb66-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb66-5"><a href="univarite-probability-distributions.html#cb66-5"></a>  <span class="st">&quot;P(4 &lt;= Y &lt;= 6) with Y~Pois(8) is &quot;</span>,</span>
+<span id="cb66-6"><a href="univarite-probability-distributions.html#cb66-6"></a>  <span class="kw">format</span>(prob_pois, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb66-7"><a href="univarite-probability-distributions.html#cb66-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb66-8"><a href="univarite-probability-distributions.html#cb66-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(4 &lt;= Y &lt;= 6) with Y~Pois(8) is 0.4972.&quot;</code></pre>
+<p>When we are interested in finding the <em>yth</em> percentile we can use the quantile function, <code class="sourceCode r"><span class="kw">qpois</span>(p, lambda)</code> where:</p>
+<ul>
+<li><em>p</em> is the <em>percentile</em> of interest, and</li>
+<li><em>lambda</em> is the constant <em>mean</em> rate.</li>
+</ul>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="univarite-probability-distributions.html#cb68-1"></a><span class="co"># Find the 99th percentile of Y~Poisson(8)</span></span>
+<span id="cb68-2"><a href="univarite-probability-distributions.html#cb68-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">qpois</span>(<span class="fl">0.99</span>, <span class="dv">8</span>)</span>
+<span id="cb68-3"><a href="univarite-probability-distributions.html#cb68-3"></a></span>
+<span id="cb68-4"><a href="univarite-probability-distributions.html#cb68-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb68-5"><a href="univarite-probability-distributions.html#cb68-5"></a>  <span class="st">&quot;The 99th percentile of Y~Pois(8) is &quot;</span>,</span>
+<span id="cb68-6"><a href="univarite-probability-distributions.html#cb68-6"></a>  percentile_<span class="dv">99</span>,</span>
+<span id="cb68-7"><a href="univarite-probability-distributions.html#cb68-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb68-8"><a href="univarite-probability-distributions.html#cb68-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;The 99th percentile of Y~Pois(8) is 15.&quot;</code></pre>
+<p>Finally, we finish with a plot of Poisson distributions. We note that for large <span class="math inline">\(\lambda\)</span> the Poisson distribution is well approximated by the normal distribution with <span class="math inline">\(\mu = \lambda\)</span> and <span class="math inline">\(\sigma^2 = \lambda\)</span>. We can approximate the Poisson distribution with this normal distribution after allowing for a continuity correction:</p>
+<p><span class="math display">\[F_{Pois}(x; \lambda) \approx F_{normal}(x + 0.5; \mu = \lambda, \sigma^2 = \lambda)\]</span></p>
+<p>Here we have replaced <span class="math inline">\(P(X &lt;= x)\)</span> with <span class="math inline">\(P(X &lt;= x + 0.5)\)</span> on account of the continuity correction.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="univarite-probability-distributions.html#cb70-1"></a><span class="co"># Plot the distribution function of X, Y, Z with:</span></span>
+<span id="cb70-2"><a href="univarite-probability-distributions.html#cb70-2"></a><span class="co"># X,Y,Z~Pois(lambda) for various lambda</span></span>
+<span id="cb70-3"><a href="univarite-probability-distributions.html#cb70-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb70-4"><a href="univarite-probability-distributions.html#cb70-4"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb70-5"><a href="univarite-probability-distributions.html#cb70-5"></a></span>
+<span id="cb70-6"><a href="univarite-probability-distributions.html#cb70-6"></a>lambdas &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb70-7"><a href="univarite-probability-distributions.html#cb70-7"></a>  <span class="st">&quot;lambda = 8&quot;</span>,</span>
+<span id="cb70-8"><a href="univarite-probability-distributions.html#cb70-8"></a>  <span class="st">&quot;lambda = 16&quot;</span>,</span>
+<span id="cb70-9"><a href="univarite-probability-distributions.html#cb70-9"></a>  <span class="st">&quot;lambda = 32&quot;</span></span>
+<span id="cb70-10"><a href="univarite-probability-distributions.html#cb70-10"></a>)</span>
+<span id="cb70-11"><a href="univarite-probability-distributions.html#cb70-11"></a></span>
+<span id="cb70-12"><a href="univarite-probability-distributions.html#cb70-12"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb70-13"><a href="univarite-probability-distributions.html#cb70-13"></a>  <span class="dt">dist_types =</span> <span class="kw">rep</span>(lambdas, <span class="dt">each =</span> <span class="dv">1000</span>),</span>
+<span id="cb70-14"><a href="univarite-probability-distributions.html#cb70-14"></a>  <span class="dt">dist_values =</span> <span class="kw">c</span>(</span>
+<span id="cb70-15"><a href="univarite-probability-distributions.html#cb70-15"></a>    <span class="kw">rpois</span>(<span class="dv">1000</span>, <span class="dv">8</span>),</span>
+<span id="cb70-16"><a href="univarite-probability-distributions.html#cb70-16"></a>    <span class="kw">rpois</span>(<span class="dv">1000</span>, <span class="dv">16</span>),</span>
+<span id="cb70-17"><a href="univarite-probability-distributions.html#cb70-17"></a>    <span class="kw">rpois</span>(<span class="dv">1000</span>, <span class="dv">32</span>)</span>
+<span id="cb70-18"><a href="univarite-probability-distributions.html#cb70-18"></a>  )</span>
+<span id="cb70-19"><a href="univarite-probability-distributions.html#cb70-19"></a>) </span>
+<span id="cb70-20"><a href="univarite-probability-distributions.html#cb70-20"></a></span>
+<span id="cb70-21"><a href="univarite-probability-distributions.html#cb70-21"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> dist_values, <span class="dt">fill =</span> dist_types)) <span class="op">+</span></span>
+<span id="cb70-22"><a href="univarite-probability-distributions.html#cb70-22"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb70-23"><a href="univarite-probability-distributions.html#cb70-23"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distribution values&quot;</span>) <span class="op">+</span></span>
+<span id="cb70-24"><a href="univarite-probability-distributions.html#cb70-24"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb70-25"><a href="univarite-probability-distributions.html#cb70-25"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb70-26"><a href="univarite-probability-distributions.html#cb70-26"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb70-27"><a href="univarite-probability-distributions.html#cb70-27"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">breaks =</span> lambdas) <span class="op">+</span></span>
+<span id="cb70-28"><a href="univarite-probability-distributions.html#cb70-28"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Poisson distributions for various lambda&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-poisson-6-1.png" width="672" /></p>
+</div>
+<div id="uniform-distribution---discrete" class="section level3">
+<h3><span class="header-section-number">2.2.6</span> Uniform distribution - discrete</h3>
+<p>Our final discrete probability distribution concerns the uniform distribution (<span class="math inline">\(Z\)</span>) defined over a finite set <span class="math inline">\({a, b}\)</span>. This is one discrete probability distribution which is <strong>not</strong> part of the source code for the <code>stats</code> package in base <code>R</code>. We can use <code>rdunif(n, b, a)</code> function within the <code>purrr</code> package<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> to generate random deviates following the discrete uniform distribution.</p>
+<p>We have:</p>
+<p><span class="math display">\[P(Z = k) = \frac{1}{b - a + 1}\]</span></p>
+<p>As an example we can simulate a die throw using <span class="math inline">\(Z \sim \mathcal{U}(1, 6)\)</span> as follows:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="univarite-probability-distributions.html#cb71-1"></a><span class="co"># Generate 5 random deviates on Z~Unif(1, 6)</span></span>
+<span id="cb71-2"><a href="univarite-probability-distributions.html#cb71-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb71-3"><a href="univarite-probability-distributions.html#cb71-3"></a>purrr<span class="op">::</span><span class="kw">rdunif</span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 1 5 1 1 2</code></pre>
+<p>To find <span class="math inline">\(P(Z &lt;= k)\)</span> we can calculate this using the CDF:</p>
+<p><span class="math display">\[P(Z &lt;= k) = \frac{\lfloor k \rfloor - a + 1}{b - a + 1}\]</span></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="univarite-probability-distributions.html#cb73-1"></a><span class="co"># Find P(Z &lt;= 2) with Z~Unif(1, 6)</span></span>
+<span id="cb73-2"><a href="univarite-probability-distributions.html#cb73-2"></a>prob_uniform &lt;-<span class="st"> </span>(<span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb73-3"><a href="univarite-probability-distributions.html#cb73-3"></a></span>
+<span id="cb73-4"><a href="univarite-probability-distributions.html#cb73-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb73-5"><a href="univarite-probability-distributions.html#cb73-5"></a>  <span class="st">&quot;P(Z &lt;= 2) with Z~Unif(1, 6) is &quot;</span>,</span>
+<span id="cb73-6"><a href="univarite-probability-distributions.html#cb73-6"></a>  <span class="kw">format</span>(prob_uniform, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb73-7"><a href="univarite-probability-distributions.html#cb73-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb73-8"><a href="univarite-probability-distributions.html#cb73-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Z &lt;= 2) with Z~Unif(1, 6) is 0.3333.&quot;</code></pre>
+<p>To find <span class="math inline">\(P(Z = k)\)</span> we can use the PMF, <span class="math inline">\(P(Z = k) = \frac{1}{b - a + 1}\)</span>:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="univarite-probability-distributions.html#cb75-1"></a><span class="co"># Find P(Z = 2)  with Z~Unif(1, 6)</span></span>
+<span id="cb75-2"><a href="univarite-probability-distributions.html#cb75-2"></a>prob_uniform &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb75-3"><a href="univarite-probability-distributions.html#cb75-3"></a></span>
+<span id="cb75-4"><a href="univarite-probability-distributions.html#cb75-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb75-5"><a href="univarite-probability-distributions.html#cb75-5"></a>  <span class="st">&quot;P(Z = 2) with Z~Unif(1, 6) is &quot;</span>,</span>
+<span id="cb75-6"><a href="univarite-probability-distributions.html#cb75-6"></a>  <span class="kw">format</span>(prob_uniform, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb75-7"><a href="univarite-probability-distributions.html#cb75-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb75-8"><a href="univarite-probability-distributions.html#cb75-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(Z = 2) with Z~Unif(1, 6) is 0.1667.&quot;</code></pre>
+<p>To find <span class="math inline">\(P(k_1 \leq Z \leq k_2)\)</span> we can sum over the PMFs:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="univarite-probability-distributions.html#cb77-1"></a><span class="co"># Find P(3 &lt;= Z &lt;= 5) where Z~Unif(1, 6)</span></span>
+<span id="cb77-2"><a href="univarite-probability-distributions.html#cb77-2"></a><span class="co"># P(Z = k) is constant for all k:</span></span>
+<span id="cb77-3"><a href="univarite-probability-distributions.html#cb77-3"></a>prob_uniform &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb77-4"><a href="univarite-probability-distributions.html#cb77-4"></a><span class="co"># We have k = 3, 4, 5:</span></span>
+<span id="cb77-5"><a href="univarite-probability-distributions.html#cb77-5"></a>prob_uniform &lt;-<span class="st"> </span>prob_uniform <span class="op">*</span><span class="st"> </span><span class="dv">3</span></span>
+<span id="cb77-6"><a href="univarite-probability-distributions.html#cb77-6"></a></span>
+<span id="cb77-7"><a href="univarite-probability-distributions.html#cb77-7"></a><span class="kw">paste0</span>(</span>
+<span id="cb77-8"><a href="univarite-probability-distributions.html#cb77-8"></a>  <span class="st">&quot;P(3 &lt;= Z &lt;= 5) with Z~Unif(1, 6) is &quot;</span>,</span>
+<span id="cb77-9"><a href="univarite-probability-distributions.html#cb77-9"></a>  <span class="kw">format</span>(prob_uniform, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb77-10"><a href="univarite-probability-distributions.html#cb77-10"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb77-11"><a href="univarite-probability-distributions.html#cb77-11"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;P(3 &lt;= Z &lt;= 5) with Z~Unif(1, 6) is 0.5.&quot;</code></pre>
+<p>When we are interested in finding the <em>zth</em> percentile we can use the quantile function <span class="math inline">\(F^{-1}_{Z}(p)\)</span>:</p>
+<p><span class="math display">\[F^-1(p) = \lfloor (b - a + 1)p \rfloor - 1\]</span></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="univarite-probability-distributions.html#cb79-1"></a><span class="co"># Plot the distribution function of Z~Uniform(1, 6)</span></span>
+<span id="cb79-2"><a href="univarite-probability-distributions.html#cb79-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">floor</span>((<span class="dv">6</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">*</span><span class="fl">0.99</span>)</span>
+<span id="cb79-3"><a href="univarite-probability-distributions.html#cb79-3"></a></span>
+<span id="cb79-4"><a href="univarite-probability-distributions.html#cb79-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb79-5"><a href="univarite-probability-distributions.html#cb79-5"></a>  <span class="st">&quot;The 99th percentile of Z~Unif(1, 6) is &quot;</span>,</span>
+<span id="cb79-6"><a href="univarite-probability-distributions.html#cb79-6"></a>  percentile_<span class="dv">99</span>,</span>
+<span id="cb79-7"><a href="univarite-probability-distributions.html#cb79-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb79-8"><a href="univarite-probability-distributions.html#cb79-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;The 99th percentile of Z~Unif(1, 6) is 5.&quot;</code></pre>
+<p>Finally, we finish with a plot of uniform distributions for various inputs.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="univarite-probability-distributions.html#cb81-1"></a><span class="co"># Plot the distribution function of X, Y, Z with:</span></span>
+<span id="cb81-2"><a href="univarite-probability-distributions.html#cb81-2"></a><span class="co"># X,Y,Z~Unif(a, b) for various {a, b}</span></span>
+<span id="cb81-3"><a href="univarite-probability-distributions.html#cb81-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb81-4"><a href="univarite-probability-distributions.html#cb81-4"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb81-5"><a href="univarite-probability-distributions.html#cb81-5"></a></span>
+<span id="cb81-6"><a href="univarite-probability-distributions.html#cb81-6"></a>finite_sets &lt;-<span class="st"> </span><span class="kw">c</span>(</span>
+<span id="cb81-7"><a href="univarite-probability-distributions.html#cb81-7"></a> <span class="st">&quot;a = 1, b = 6&quot;</span>, <span class="co"># 1 die</span></span>
+<span id="cb81-8"><a href="univarite-probability-distributions.html#cb81-8"></a> <span class="st">&quot;a = 1, b = 12&quot;</span>, <span class="co"># 2 dice</span></span>
+<span id="cb81-9"><a href="univarite-probability-distributions.html#cb81-9"></a> <span class="st">&quot;a = 1, b = 20&quot;</span> <span class="co"># d20 die from D&amp;D</span></span>
+<span id="cb81-10"><a href="univarite-probability-distributions.html#cb81-10"></a>)</span>
+<span id="cb81-11"><a href="univarite-probability-distributions.html#cb81-11"></a></span>
+<span id="cb81-12"><a href="univarite-probability-distributions.html#cb81-12"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb81-13"><a href="univarite-probability-distributions.html#cb81-13"></a>  <span class="dt">dist_types =</span> <span class="kw">rep</span>(finite_sets, <span class="dt">each =</span> <span class="dv">5000</span>),</span>
+<span id="cb81-14"><a href="univarite-probability-distributions.html#cb81-14"></a>  <span class="dt">dist_values =</span> <span class="kw">c</span>(</span>
+<span id="cb81-15"><a href="univarite-probability-distributions.html#cb81-15"></a>    purrr<span class="op">::</span><span class="kw">rdunif</span>(<span class="dv">5000</span>, <span class="dv">1</span> , <span class="dv">6</span>),</span>
+<span id="cb81-16"><a href="univarite-probability-distributions.html#cb81-16"></a>    purrr<span class="op">::</span><span class="kw">rdunif</span>(<span class="dv">5000</span>, <span class="dv">1</span>, <span class="dv">12</span>),</span>
+<span id="cb81-17"><a href="univarite-probability-distributions.html#cb81-17"></a>    purrr<span class="op">::</span><span class="kw">rdunif</span>(<span class="dv">5000</span>, <span class="dv">1</span>, <span class="dv">20</span>)</span>
+<span id="cb81-18"><a href="univarite-probability-distributions.html#cb81-18"></a>  )</span>
+<span id="cb81-19"><a href="univarite-probability-distributions.html#cb81-19"></a>) </span>
+<span id="cb81-20"><a href="univarite-probability-distributions.html#cb81-20"></a></span>
+<span id="cb81-21"><a href="univarite-probability-distributions.html#cb81-21"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> dist_values, <span class="dt">fill =</span> dist_types)) <span class="op">+</span></span>
+<span id="cb81-22"><a href="univarite-probability-distributions.html#cb81-22"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.75</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span></span>
+<span id="cb81-23"><a href="univarite-probability-distributions.html#cb81-23"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Distribution values&quot;</span>) <span class="op">+</span></span>
+<span id="cb81-24"><a href="univarite-probability-distributions.html#cb81-24"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb81-25"><a href="univarite-probability-distributions.html#cb81-25"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb81-26"><a href="univarite-probability-distributions.html#cb81-26"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb81-27"><a href="univarite-probability-distributions.html#cb81-27"></a><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">breaks =</span> finite_sets) <span class="op">+</span></span>
+<span id="cb81-28"><a href="univarite-probability-distributions.html#cb81-28"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of uniform distributions for various inputs&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-uniform-discrete-6-1.png" width="672" /></p>
+</div>
+</div>
+<div id="continous-probability-distributions" class="section level2">
+<h2><span class="header-section-number">2.3</span> Continous probability distributions</h2>
+<p>We will now consider how to interact with the following continous probability distributions in <code>R</code>:</p>
+<ul>
+<li>Normal</li>
+<li>Lognormal</li>
+<li>Exponential</li>
+<li>Gamma</li>
+<li><span class="math inline">\(\chi^2\)</span></li>
+<li>Student’s <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(F\)</span></li>
+<li>Beta</li>
+<li>Uniform (on an interval)</li>
+</ul>
+<div id="normal-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Normal distribution</h3>
+<p>We start with generating random deviates from the Normal distribution.</p>
+<p>If we are interested in the standard normal, <code>R</code> helpfully has default argument values for <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 0\)</span> so the function call is very concise:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="univarite-probability-distributions.html#cb82-1"></a><span class="co"># Generate random deviates</span></span>
+<span id="cb82-2"><a href="univarite-probability-distributions.html#cb82-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb82-3"><a href="univarite-probability-distributions.html#cb82-3"></a><span class="kw">rnorm</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1]  1.3709584 -0.5646982  0.3631284  0.6328626  0.4042683</code></pre>
+<p>We can also specify our own values of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>. With <code>R</code> we need to remember that the <span class="math inline">\(\sigma\)</span> argument corresponds to the standard deviation, <strong>not</strong> the variance.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="univarite-probability-distributions.html#cb84-1"></a><span class="co"># Generate random deviates</span></span>
+<span id="cb84-2"><a href="univarite-probability-distributions.html#cb84-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb84-3"><a href="univarite-probability-distributions.html#cb84-3"></a><span class="kw">rnorm</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 12.741917  8.870604 10.726257 11.265725 10.808537</code></pre>
+<p>We next look at the cumulative distribution function for a Normal distribution. In <code>R</code> we can calculate this using <code class="sourceCode r"><span class="kw">pnorm</span>(q, mean, sd)</code> where:</p>
+<ul>
+<li><em>q</em> is the quantile of interest,</li>
+<li><em>mean</em> is the mean, and</li>
+<li><em>sd</em> is standard deviation.</li>
+</ul>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="univarite-probability-distributions.html#cb86-1"></a><span class="co"># Calculate P(X &lt;= 2) for X~N(0,1)</span></span></code></pre></div>
+<p>Next we want to find the x<sup>th</sup> percentile of <span class="math inline">\(X \sim N(\mu, \sigma)\)</span>. We use the quantile function, <code class="sourceCode r"><span class="kw">qnorm</span>(mu, sigma)</code>.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="univarite-probability-distributions.html#cb87-1"></a><span class="co"># Find the 99th percentile for X~N(10,2)</span></span>
+<span id="cb87-2"><a href="univarite-probability-distributions.html#cb87-2"></a>percentile_<span class="dv">99</span> &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.99</span>, <span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb87-3"><a href="univarite-probability-distributions.html#cb87-3"></a></span>
+<span id="cb87-4"><a href="univarite-probability-distributions.html#cb87-4"></a><span class="kw">paste0</span>(</span>
+<span id="cb87-5"><a href="univarite-probability-distributions.html#cb87-5"></a>  <span class="st">&quot;The 99th percentile of X~N(10, 2) is &quot;</span>,</span>
+<span id="cb87-6"><a href="univarite-probability-distributions.html#cb87-6"></a>  <span class="kw">format</span>(percentile_<span class="dv">99</span>, <span class="dt">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb87-7"><a href="univarite-probability-distributions.html#cb87-7"></a>  <span class="st">&quot;.&quot;</span></span>
+<span id="cb87-8"><a href="univarite-probability-distributions.html#cb87-8"></a>)</span></code></pre></div>
+<pre><code>## [1] &quot;The 99th percentile of X~N(10, 2) is 14.65.&quot;</code></pre>
+<p>As is customary we finish with a plot of the normal distribution.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="univarite-probability-distributions.html#cb89-1"></a><span class="co"># Plot the distribution function of X~Normal(mu =, sigma = )</span></span></code></pre></div>
+</div>
+<div id="lognormal-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Lognormal distribution</h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="univarite-probability-distributions.html#cb90-1"></a><span class="co"># Plot the distribution function of Y~Lognormal()</span></span></code></pre></div>
+</div>
+<div id="exponential-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Exponential distribution</h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="univarite-probability-distributions.html#cb91-1"></a><span class="co"># Plot the distribution function of Z~Exp()</span></span></code></pre></div>
+</div>
+<div id="gamma-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Gamma distribution</h3>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="univarite-probability-distributions.html#cb92-1"></a><span class="co"># Plot the distribution of X~Gamma()</span></span></code></pre></div>
+</div>
+<div id="chi2-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> <span class="math inline">\(\chi^2\)</span> distribution</h3>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="univarite-probability-distributions.html#cb93-1"></a><span class="co"># Plot the distribution of Y~Chi-Square()</span></span></code></pre></div>
+</div>
+<div id="students-t-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.6</span> Student’s <span class="math inline">\(t\)</span> distribution</h3>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="univarite-probability-distributions.html#cb94-1"></a><span class="co"># Plot the distribution of Z~t()</span></span></code></pre></div>
+</div>
+<div id="f-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.7</span> <span class="math inline">\(F\)</span> distribution</h3>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="univarite-probability-distributions.html#cb95-1"></a><span class="co"># Plot the distribution of X~F()</span></span></code></pre></div>
+</div>
+<div id="beta-distribution" class="section level3">
+<h3><span class="header-section-number">2.3.8</span> Beta distribution</h3>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="univarite-probability-distributions.html#cb96-1"></a><span class="co"># Plot the distribution of Y~Beta()</span></span></code></pre></div>
+</div>
+<div id="uniform-distribution---continous" class="section level3">
+<h3><span class="header-section-number">2.3.9</span> Uniform distribution - continous</h3>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="univarite-probability-distributions.html#cb97-1"></a><span class="co"># Plot the distribution of Z~Uniform()</span></span></code></pre></div>
+</div>
+</div>
+<div id="poisson-process" class="section level2">
+<h2><span class="header-section-number">2.4</span> Poisson process</h2>
+</div>
+<div id="inverse-transform-method" class="section level2">
+<h2><span class="header-section-number">2.5</span> Inverse transform method</h2>
+<p>The inverse transform method is a way to generate psuedo-random numbers from any probability distribution.</p>
+<p>One possible algorithm is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Generate a random number <span class="math inline">\(u\)</span> from $U (0, 1)</li>
+<li>Find the inverse of the desired cumulative distribution function, <span class="math inline">\(F^{-1}_X(x)\)</span></li>
+<li>Compute <span class="math inline">\(X = F^{-1}_X(u)\)</span></li>
+</ol>
+<p>Suppose we wanted to draw 10,000 random numbers from <span class="math inline">\(X \sim Exp(\lambda = 2)\)</span>. In order to use the inverse transform method we first need to find the inverse of the CDF. For any <span class="math inline">\(X \sim Exp(\lambda)\)</span>, the inverse of the CDF is <span class="math inline">\(\frac{-log(1-x)}{\lambda}\)</span>. We can thus use the inverse transform algorithm to generate random deviates following <span class="math inline">\(X \sim Exp(2)\)</span>:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="univarite-probability-distributions.html#cb98-1"></a><span class="co"># Step 0 - to guarantee reproducibility</span></span>
+<span id="cb98-2"><a href="univarite-probability-distributions.html#cb98-2"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb98-3"><a href="univarite-probability-distributions.html#cb98-3"></a></span>
+<span id="cb98-4"><a href="univarite-probability-distributions.html#cb98-4"></a><span class="co"># Step 1 - generate 10,000 random deviates from U[0,1]</span></span>
+<span id="cb98-5"><a href="univarite-probability-distributions.html#cb98-5"></a>u &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10000</span>)</span>
+<span id="cb98-6"><a href="univarite-probability-distributions.html#cb98-6"></a></span>
+<span id="cb98-7"><a href="univarite-probability-distributions.html#cb98-7"></a><span class="co"># Step 2 - find the inverse of the CDF: 1 - exp(-lambda.x)</span></span>
+<span id="cb98-8"><a href="univarite-probability-distributions.html#cb98-8"></a><span class="co"># Inverse of CDF = -log(1 - x) / lambda</span></span>
+<span id="cb98-9"><a href="univarite-probability-distributions.html#cb98-9"></a></span>
+<span id="cb98-10"><a href="univarite-probability-distributions.html#cb98-10"></a><span class="co"># Step 3 - compute X using the inverse of the CDF [from step 2] and the random deviates u [from step 1]</span></span>
+<span id="cb98-11"><a href="univarite-probability-distributions.html#cb98-11"></a>x &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">log</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>u) <span class="op">/</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb98-12"><a href="univarite-probability-distributions.html#cb98-12"></a></span>
+<span id="cb98-13"><a href="univarite-probability-distributions.html#cb98-13"></a><span class="co"># Plot the resulting x deviates</span></span>
+<span id="cb98-14"><a href="univarite-probability-distributions.html#cb98-14"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb98-15"><a href="univarite-probability-distributions.html#cb98-15"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x) </span>
+<span id="cb98-16"><a href="univarite-probability-distributions.html#cb98-16"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span></span>
+<span id="cb98-17"><a href="univarite-probability-distributions.html#cb98-17"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>, <span class="dt">colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="book_files/figure-html/univariate-distributions-inverse-transform-1-1.png" width="672" /></p>
+</div>
+<div id="practice-univariate-distributions" class="section level2 unnumbered">
+<h2><code>R</code> Practice</h2>
+<p>We finish with a comprehensive example of an univariate distribution question in <code>R</code>.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>For inspiration consider the BBC’s <a href="https://bbc.github.io/rcookbook/">cookbook</a> that highlights how to create their distinctive graphics predominately using <code>ggplot2</code>.<a href="univarite-probability-distributions.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>This probability was chosen based on <em>Table 1</em> from <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/925066/Sex_ratios_at_birth_in_the_United_Kingdom__2014-18.pdf">Sex ratios at birth in the United Kingdom, 2014-18</a> from the Department of Health &amp; Social Care.<a href="univarite-probability-distributions.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>This turns out to be the number of live births in Guildford in 2019, as per <em>Table 3</em> of the ONS’ <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/birthsummarytables">Birth Summary Tables, England and Wales, 2019</a>. Source: Office for National Statistics under the Open Government Licence.<a href="univarite-probability-distributions.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://purrr.tidyverse.org/"><code>purrr</code></a> is a part of the tidyverse suite of packages<a href="univarite-probability-distributions.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="joint-and-conditional-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["twitter", "linkedin"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/agarbiak/CS1/edit/main/univariate-distributions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true,
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
