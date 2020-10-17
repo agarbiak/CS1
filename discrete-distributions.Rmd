@@ -60,7 +60,7 @@ To give some quick examples (we will explore these in more detail later in this 
 | `pgamma(0.2, shape=2, rate=2)`{.R} | Computes $F_Y(0.2)$ where $Y \sim \mathcal{\Gamma}(2,\,2)$, i.e.  $\boldsymbol{P}(Y\leq 0.2)$|
 | `qexp(0.5, rate = 2)`{.R} | Determines smallest value of $z$ for $\boldsymbol{P}(Z \leq z) = 0.5$ where $Z \sim Exp(2)$ |
 
-### Discrete probability distributions covered {-}
+## Discrete probability distributions covered {-}
 
 We will consider how to interact with the following discrete probability distributions in `R`:
 

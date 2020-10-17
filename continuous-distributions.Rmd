@@ -1,8 +1,8 @@
-# Continous Probability Distributions
+# Continuous Probability Distributions
 
-## Learning Objectives {-#objectives-continous-distributions}
+## Learning Objectives {-#objectives-continuous-distributions}
 
-1. Define and explain the key characteristics of the continous distributions:
+1. Define and explain the key characteristics of the continuous distributions:
   - normal, 
   - lognormal, 
   - exponential, 
@@ -13,9 +13,9 @@
   - beta and 
   - uniform on an interval.
 2. Evaluate probabilities and quantiles associated with such distributions.
-3. Generate discrete and continous random variables using the inverse transform method.
+3. Generate discrete and continuous random variables using the inverse transform method.
 
-## Theory {-#theory-continous-distributions}
+## Theory {-#theory-continuous-distributions}
 
 **A reminder:** `R` was designed to be used for statistical computing - so it handles **randomness** well! Using `R` we can guarantee reproducibility (and enhance sharability) by using the function `set.seed(seed)`{.R} where `seed` is a single value integer. Using this approach we guarantee the generation of the same sequence of random numbers everytime we call this function. Use `?set.seed`{.R} to learn more about this function.
 
@@ -40,9 +40,9 @@ To give some quick examples (we will further explore these in more detail later 
 | `pgamma(0.2, shape=2, rate=2)`{.R} | Computes $F_Y(0.2)$ where $Y \sim \mathcal{\Gamma}(2,\,2)$, i.e.  $\boldsymbol{P}(Y\leq 0.2)$|
 | `qexp(0.5, rate = 2)`{.R} | Determines smallest value of $z$ for $\boldsymbol{P}(Z \leq z) = 0.5$ where $Z \sim Exp(2)$ |
 
-### Continous probability distributions covered {-}
+## Continuous probability distributions covered {-}
 
-We will consider how to interact with the following continous probability distributions in `R`:
+We will consider how to interact with the following continuous probability distributions in `R`:
 
 - Normal
 - Lognormal
@@ -161,7 +161,7 @@ As is customary we finish with a plot of the normal distribution.
 # Plot the distribution of Y~Beta()
 ```
 
-## Uniform distribution {#continous-uniform}
+## Uniform distribution {#continuous-uniform}
 
 ```{r continuous-distributions-uniform-1}
 
@@ -200,6 +200,6 @@ ggplot(df, aes(x=x)) +
   geom_histogram(binwidth = 0.5, colour="black", fill="white")
 ```
 
-## `R` Practice {-#practice-continous-distributions}
+## `R` Practice {-#practice-continuous-distributions}
 
-We finish with a comprehensive example of an univariate continous distribution question in `R`.
+We finish with a comprehensive example of an univariate continuous distribution question in `R`.
